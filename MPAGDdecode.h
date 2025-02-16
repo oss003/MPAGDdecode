@@ -1,5 +1,5 @@
 #define SnapshotOffset	(0x4000 - 0x1b)
-#define debug 0
+#define debug 1
 
 int CodeStart;
 int EngineStart;
@@ -19,7 +19,6 @@ int CallPrtmod;
 int CallChr;
 int CallClw;
 int CallCls;
-//int CallKeys;
 int CallDisply;
 int CallNum2dd;
 int CallExplod;
@@ -383,11 +382,11 @@ const char *VARstring[]={
 	NULL};
 
 const char *SPRVARstring[]={
-	"",
-	"",
-	"",
-	"",
-	"",
+	"TYPE",
+	"IMAGE",
+	"FRAME",
+	"Y",
+	"X",
 	"TYPE",
 	"IMAGE",
 	"FRAME",

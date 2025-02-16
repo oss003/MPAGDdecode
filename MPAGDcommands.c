@@ -14,7 +14,7 @@ extern unsigned int DataByte;
 extern unsigned int Event[22];
 extern 	int Events;
 extern char MSG[255][255];
-extern unsigned int DATAstack[20];
+extern unsigned int DATAstack[1000];
 extern int keys;
 
 const char *ReadSprName();
@@ -1061,7 +1061,7 @@ int tst_CANGODOWN(){
 		sprintf (Dummy,"%04X IF CANGODOWN\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		PushIFstack(4);
-		ident++;
+//		ident++;
 		event_ptr = event_ptr + 6;
 		return 1;
 	} else {
@@ -1093,7 +1093,7 @@ int tst_CANGOLEFT(){
 		sprintf (Dummy,"%04X IF CANGOLEFT\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		PushIFstack(4);
-		ident++;
+//		ident++;
 		event_ptr = event_ptr + 6;
 		return 1;
 	} else {
@@ -1125,7 +1125,7 @@ int tst_CANGORIGHT(){
 		sprintf (Dummy,"%04X IF CANGORIGHT\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		PushIFstack(4);
-		ident++;
+//		ident++;
 		event_ptr = event_ptr + 6;
 		return 1;
 	} else {
@@ -1157,7 +1157,7 @@ int tst_CANGOUP(){
 		sprintf (Dummy,"%04X IF CANGOUP\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		PushIFstack(4);
-		ident++;
+//		ident++;
 		event_ptr = event_ptr + 6;
 		return 1;
 	} else {
@@ -1324,7 +1324,7 @@ int tst_IFCOLLVAR(){
 		PrtReport(Dummy,1);
 		PushIFstack(8);
 		event_ptr = event_ptr + 10;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -1360,7 +1360,7 @@ int tst_IFCOLLSPRVAR(){
 		PrtReport(Dummy,1);
 		PushIFstack(8);
 		event_ptr = event_ptr + 10;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -1394,7 +1394,7 @@ int tst_IFCOLLVAL(){
 		PrtReport(Dummy,1);
 		PushIFstack(6);
 		event_ptr = event_ptr + 8;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -1425,7 +1425,7 @@ int tst_IFCOLLBULLET(){
 		PrtReport(Dummy,1);
 		PushIFstack(4);
 		event_ptr = event_ptr + 6;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -2287,10 +2287,10 @@ int tst_ENDREPEAT(){
 
 	if (strcmp(cmd_ENDREPEAT, cPattern) == 0){
 		if (Address == 0x5c81 || Address == 0x5cb0 || Address == 0x5cb1){
+//			ident--;
 			sprintf (Dummy,"%04X ENDREPEAT\n", event_ptr + SnapshotOffset); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 7;
-			ident--;
 			return 1;
 		} else {
 			return 0;
@@ -2841,7 +2841,7 @@ int tst_IFGOTZERO(){
 		PrtReport(Dummy,1);
 		PushIFstack(5);
 		event_ptr = event_ptr + 7;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -2878,7 +2878,7 @@ int tst_IFGOTVAR(){
 		PrtReport(Dummy,1);
 		PushIFstack(7);
 		event_ptr = event_ptr + 9;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -2915,7 +2915,7 @@ int tst_IFGOTVAL(){
 		PrtReport(Dummy,1);
 		PushIFstack(6);
 		event_ptr = event_ptr + 8;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -2983,7 +2983,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 5);
 				}
 				ptr_offset = ptr_offset + 7;
-				ident++;
+//				ident++;
 				break;
 			}
 			if (strcmp(cmd_IFSPRVARVAR, cPattern6) == 0){
@@ -3002,7 +3002,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 4);
 				}
 				ptr_offset = ptr_offset + 6;
-				ident++;
+//				ident++;
 				break;
 			}
 			return 0;
@@ -3028,7 +3028,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 4);
 				}
 				ptr_offset = ptr_offset + 6;
-				ident++;
+//				ident++;
 				break;
 			}
 			if (strcmp(cmd_IFSPRVARVAL, cPattern8) == 0){
@@ -3047,7 +3047,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 3);
 				}
 				ptr_offset = ptr_offset + 5;
-				ident++;
+//				ident++;
 				break;
 			}
 			return 0;
@@ -3070,7 +3070,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 3);
 				}
 				ptr_offset = ptr_offset + 5;
-				ident++;
+//				ident++;
 				break;
 			}
 			if (strcmp(cmd_IFSPRVARZERO, cPattern5) == 0){
@@ -3089,7 +3089,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 2);
 				}
 				ptr_offset = ptr_offset + 4;
-				ident++;
+//				ident++;
 				break;
 			}
 			return 0;
@@ -3112,7 +3112,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 5);
 				}
 				ptr_offset = ptr_offset + 7;
-				ident++;
+//				ident++;
 				break;
 			}
 			if (strcmp(cmd_IFSPRVARSPRVAR, cPattern7) == 0){
@@ -3131,7 +3131,7 @@ int tst_IFWHILE(int Nr){
 					PushIFstack(ptr_offset + 4);
 				}
 				ptr_offset = ptr_offset + 6;
-				ident++;
+//				ident++;
 				break;
 			}
 			return 0;
@@ -3169,7 +3169,7 @@ int tst_IFCUSTOM(){
 		PrtReport(Dummy,1);
 		PushIFstack(7);
 		event_ptr = event_ptr + 9;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -3205,7 +3205,7 @@ int tst_IFDEADLY(){
 		PrtReport(Dummy,1);
 		PushIFstack(7);
 		event_ptr = event_ptr + 9;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -3283,7 +3283,7 @@ int tst_IFKEY(){
 			PushIFstack(6);
 		}
 		event_ptr = event_ptr + 8;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -3328,7 +3328,7 @@ int tst_IFKEYOPTION(){
 			PushIFstack(7);
 		}
 		event_ptr = event_ptr + 9;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -5146,7 +5146,7 @@ int tst_REPEATZERO(){
 			sprintf (Dummy,"%04X REPEAT 0\n", event_ptr + SnapshotOffset); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 4;
-			ident++;
+//			ident++;
 			return 1;
 		} else {
 			return 0;
@@ -5184,7 +5184,7 @@ int tst_REPEATVAR(){
 		sprintf (Dummy,"%04X REPEAT %s\n", event_ptr + SnapshotOffset, VARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 6;
-		ident++;
+//		ident++;
 		return 1;
 	} else {
 		return 0;
@@ -5220,7 +5220,7 @@ int tst_REPEATVAL(){
 			sprintf (Dummy,"%04X REPEAT %d\n", event_ptr + SnapshotOffset, DataByte); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 5;
-			ident++;
+//			ident++;
 			return 1;
 		} else {
 			return 0;

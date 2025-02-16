@@ -24,7 +24,6 @@ FILE *fpSource;
 unsigned char *cSrc;
 unsigned char *cBuff;
 
-//int *endif_IFstack[20];
 int endif_ptr;
 unsigned long int lSize;
 unsigned long int data_ptr;
@@ -33,11 +32,12 @@ unsigned long int event_ptr;
 unsigned long int offset;
 unsigned long int joyaddr;
 unsigned int DataByte;
-unsigned int IFstack[20];
-unsigned int WHILEstack[20];
-unsigned int DATAstack[20];
+unsigned int IFstack[1000];
+unsigned int WHILEstack[1000];
+unsigned int DATAstack[1000];
 unsigned int Event[22];
 int keys;
+int iflag;
 
 char MSG[255][255];
 int NMEptr[100];
@@ -67,7 +67,7 @@ int main( int argc, const char* argv[] )
 //
 	sprintf (Dummy,"==============================================================\n");
 	PrtReport(Dummy,3);
-	sprintf (Dummy,"MPAGD decoder v1.0 - %s.sna\n",argv[1]);
+	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.0 - %s.sna\n",argv[1]);
 	PrtReport(Dummy,3);
 	sprintf (Dummy,"==============================================================\n\n");
 	PrtReport(Dummy,3);
@@ -155,15 +155,22 @@ int main( int argc, const char* argv[] )
 	
 	for (Events = 0; Events < 21; Events++){
 		
-		printf("\n;----------------------------------------------------------");
+//		printf("\n;----------------------------------------------------------");
+        if (ident != 0){
+			printf("\n***** IDENT ERROR, ident=%d\n",ident);
+		}
 		printf("\n%s\n",EventName[Events]);
+		ident = 0;
 		while (event_ptr != Event[Events+1] - SnapshotOffset){
 
+			iflag = 0;
 			CheckDATAstack (event_ptr + SnapshotOffset);
 			CheckWHILEstack (event_ptr + SnapshotOffset);
 			CheckIFstack (event_ptr + SnapshotOffset);
-			PrintIdent(ident);
-
+//			if (iflag == 0){
+//				PrintIdent(ident);
+//			}
+			
 			switch(cBuff[event_ptr]){
 				case 0x01:
 					if (tst_SPAWNVALVAL())        break;

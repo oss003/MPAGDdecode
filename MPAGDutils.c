@@ -4,13 +4,14 @@
 
 extern unsigned char *cBuff;
 extern unsigned long int event_ptr;
-extern unsigned int IFstack[20];
-extern unsigned int WHILEstack[20];
-extern unsigned int DATAstack[20];
+extern unsigned int IFstack[1000];
+extern unsigned int WHILEstack[1000];
+extern unsigned int DATAsFtack[1000];
 extern unsigned long int lSize;
 extern unsigned int Event[22];
 extern int VarAddress;
 extern int ptr_offset;
+extern int iflag;
 
 extern char MSG[255][255];
 
@@ -176,7 +177,13 @@ const char *ReadSprVarName(offset){
 
 	char *VARname;
 
+
 	switch (offset){
+		case  0: VARname = "TYPE"; break;
+		case  1: VARname = "IMAGE"; break;
+		case  2: VARname = "FRAME"; break;
+		case  3: VARname = "Y"; break;
+		case  4: VARname = "X"; break;
 		case  5: VARname = "TYPE"; break;
 		case  6: VARname = "IMAGE"; break;
 		case  7: VARname = "FRAME"; break;
@@ -219,12 +226,13 @@ const char *ReadSprName(offset){
 
 int PushIFstack(Offset){
 	
-// Add jump address to the IFstack[
+// Add jump address to the IFstack
 
 	int i;
-	for (i = 0; i < 20; i++){
+	for (i = 0; i < 100; i++){
 		if (IFstack[i] == 0){
-			IFstack[i] = cBuff[event_ptr + Offset] + (cBuff[event_ptr + Offset + 1] << 8); 
+			IFstack[i] = cBuff[event_ptr + Offset] + (cBuff[event_ptr + Offset + 1] << 8);
+//			ident++;
 			break;
 		}
 	}
@@ -236,21 +244,22 @@ int CheckIFstack(Address){
 	
 	int i;
 
-	for (i = 0; i < 20; i++){
+	for (i = 0; i < 100; i++){
 		if (IFstack[i] == Address){
 			IFstack[i] = 0;
+			iflag = 1;
 			if (cBuff[Address - SnapshotOffset - 3] != 0xc3){
-				ident--;
-				PrintIdent(ident);
+//				ident--;
+//				PrintIdent(ident);
 				sprintf (Dummy, "%04X ENDIF\n", Address);
 				PrtReport(Dummy,1);
 			} else {
-				ident--;
-				PrintIdent(ident);
+//				ident--;
+//				PrintIdent(ident);
 				sprintf (Dummy,"%04X ELSE\n", Address,event_ptr);
 				PrtReport(Dummy,1);
 				PushIFstack(-2);
-				ident++;
+//				ident++;
 			}
 		}
 	}
@@ -262,9 +271,10 @@ int PushWHILEstack(Address){
 // Add jump address to the IFstack[
 
 	int i;
-	for (i = 0; i < 20; i++){
+	for (i = 0; i < 100; i++){
 		if (WHILEstack[i] == 0){
 			WHILEstack[i] = Address; 
+//			ident++;
 			break;
 		}
 	}
@@ -275,11 +285,11 @@ int PushWHILEstack(Address){
 int CheckWHILEstack(Address){
 	
 	int i;
-	for (i = 0; i < 20; i++){
+	for (i = 0; i < 100; i++){
 		if (WHILEstack[i] == Address){
 			WHILEstack[i] = 0;
-			ident--;
-			PrintIdent(ident);
+//			ident--;
+			iflag = 1;
 			sprintf (Dummy,"%04X ENDWHILE\n", Address,event_ptr);
 			PrtReport(Dummy,1);
 		}
@@ -300,7 +310,8 @@ int PushDATAstack(Address){
 	int i;
 
 // Check if Address already in stack
-	for (i = 0; i < 20; i++){
+
+	for (i = 0; i < 100; i++){
 		if (DATAstack[i] == Address){
 			return;
 		}
@@ -308,7 +319,7 @@ int PushDATAstack(Address){
 
 // Add unique address to stack
 
-	for (i = 0; i < 20; i++){
+	for (i = 0; i < 100; i++){
 		if (DATAstack[i] == 0){
 			DATAstack[i] = Address; 
 			break;
@@ -328,7 +339,7 @@ int CheckDATAstack(Address){
 	int READend;
 	int Offset;
 	
-	for (i = 0; i < 20; i++){
+	for (i = 0; i < 100; i++){
 		if (DATAstack[i] == Address){
 			DATAstack[i] = 0;
 			if (Events < 9){
@@ -411,7 +422,6 @@ void Init(){
 // Locate routines in engine by unique code
 
 	EngineStart = FindAddress("22365C") - 3;
-printf("Enginestart:%04X\n",EngineStart-SnapshotOffset);
 	CallSpawn   = FindAddress("C92B2BC9") + 4;
 	CallCangoL  = FindAddress("C9DD6E08DD7E09D602")+1;
 	CallCangoR  = FindAddress("6E08DD7E09C6106722")-1;
@@ -428,7 +438,6 @@ printf("Enginestart:%04X\n",EngineStart-SnapshotOffset);
 	CallCls		= FindAddress("DDE1C921") + 3;
 	CallGravst	= FindAddress("DD7E0EDD360D00");
 	CallIFall	= FindAddress("DD7E0DA7C0DD6609");
-//	CallKeys	= EngineStart - 11;
 	CallDisply	= FindAddress("DDE5D1EBED52") + 12;
 	CallNum2dd	= FindAddress("FE20C80203C9") + 6;
 	CallExplod	= FindAddress("4FDDE5DD6E08");
@@ -473,8 +482,6 @@ printf("Enginestart:%04X\n",EngineStart-SnapshotOffset);
 	bonus		= hiscor + 6;
 	spptr		= score - 3;
 	skptr		= FindAddress("DD7E00B828") - 2;
-	
-//	printf("%04X\tprtmod\n\n",prtmod);
 	
 // Update templates with right engine routine addresses
 
@@ -552,8 +559,6 @@ printf("Enginestart:%04X\n",EngineStart-SnapshotOffset);
 
 	sprintf(cmd_WAITKEY		 ,"CD%02X%02X"			    ,CallWaitkey  & 0xff, CallWaitkey  >> 8);
 	sprintf(cmd_ZEROBONUS    ,"21%02X%02X010500363011"  ,bonus  & 0xff, bonus  >> 8);
-
-
 
 // Find Event[0-8] locations
 	
@@ -799,9 +804,34 @@ void PrtReport(char *String, int Flag){
 					printf ("%s", String);
 					break;
 				case 1:
+					if (strncmp(String + 5, "ENDIF", 5) == 0) {
+						ident--;
+					}
+					if (strncmp(String + 5, "ENDWHILE", 8) == 0) {
+						ident--;
+					}
+					if (strncmp(String + 5, "ENDREPEAT", 9) == 0) {
+						ident--;
+					}
+					if (strncmp(String + 5, "ELSE", 4) == 0) {
+						ident--;
+					}
+					PrintIdent(ident);
 					printf ("%s", String + 5);
+					if (strncmp(String + 5, "IF", 2) == 0) {
+						ident++;
+					}
+					if (strncmp(String + 5, "WHILE", 5) == 0) {
+						ident++;
+					}
+					if (strncmp(String + 5, "REPEAT", 6) == 0) {
+						ident++;
+					}
+					if (strncmp(String + 5, "ELSE", 4) == 0) {
+						ident++;
+					}
 					break;
-				case 2:
+				default:
 					break;
 		}
 	}
