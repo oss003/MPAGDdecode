@@ -232,12 +232,20 @@ int PushIFstack(Offset){
 	for (i = 0; i < 100; i++){
 		if (IFstack[i] == 0){
 			IFstack[i] = cBuff[event_ptr + Offset] + (cBuff[event_ptr + Offset + 1] << 8);
-//			ident++;
 			break;
 		}
 	}
 	return;
 	
+}
+
+int DisplayIFstack(){
+	int i;
+	
+	for (i = 0;i < 10;i++){
+		printf("%04X ",IFstack[i]);
+	}
+		return 0;
 }
 
 int CheckIFstack(Address){
@@ -249,17 +257,18 @@ int CheckIFstack(Address){
 			IFstack[i] = 0;
 			iflag = 1;
 			if (cBuff[Address - SnapshotOffset - 3] != 0xc3){
-//				ident--;
-//				PrintIdent(ident);
 				sprintf (Dummy, "%04X ENDIF\n", Address);
 				PrtReport(Dummy,1);
 			} else {
-//				ident--;
-//				PrintIdent(ident);
-				sprintf (Dummy,"%04X ELSE\n", Address,event_ptr);
-				PrtReport(Dummy,1);
-				PushIFstack(-2);
-//				ident++;
+				if ((cBuff[Address-SnapshotOffset-2] + (cBuff[Address-SnapshotOffset -1] << 8)) != event_ptr+ SnapshotOffset){
+					sprintf (Dummy,"%04X ELSE\n", Address,event_ptr);
+					PrtReport(Dummy,1);
+					PushIFstack(-2);
+				} else {
+					sprintf (Dummy, "%04X ENDIF\n", Address);
+					PrtReport(Dummy,1);
+//					ident--;
+				}
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 #define SnapshotOffset	(0x4000 - 0x1b)
-#define debug 1
+#define debug 0
 
 int CodeStart;
 int EngineStart;
