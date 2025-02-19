@@ -4502,7 +4502,6 @@ int tst_PAPERZERO(){
 // Compare pattern with template
 
 	if (strcmp(cmd_PAPERZERO, cPattern) == 0){
-//		cMsg = GetMsgString(0);
 		sprintf (Dummy,"%04X PAPER 0\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 15;

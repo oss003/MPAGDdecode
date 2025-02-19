@@ -67,6 +67,7 @@ int chgfx;
 int bcol;
 int bprop;
 int numblk;
+int msgdata;
 
 int sprgfx;
 int frmlst;

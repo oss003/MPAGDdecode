@@ -474,6 +474,9 @@ void Init(){
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
 	evntloc		= FindAddress("5E2356EBE9") - SnapshotOffset + 7;
+	msgdata		= FindAddress("E51601AF32") - SnapshotOffset - 5;
+
+printf("msgdat:%04X\n",msgdata);
 
 // Calculate locations in engine
 
@@ -699,6 +702,9 @@ void Info(){
 
 	Event[21] = msgdat - 1;
 
+	for (i = 0; i < nummsg; i++){
+			printf("%s\n",MSG[i]);
+	}
 // Print table addresses
 
 	sprintf (Dummy,"EngineAddress: %04X\n",EngineStart);
