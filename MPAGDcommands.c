@@ -2536,6 +2536,111 @@ int tst_GETVAL(){
 }
 
 //--------------------------------------------
+// 37. GETBLOCK ZERO VAR 
+//--------------------------------------------
+
+int tst_GETBLKZEROVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02Xxxxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(3);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKZEROVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK 0 %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 15;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 37. GETBLOCK ZERO SPRVAR 
+//--------------------------------------------
+
+int tst_GETBLKZEROSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02Xxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	sprVARval = ReadParam(4);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKZEROSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK 0,%s\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 15;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 37. GETBLOCK VAR ZERO 
+//--------------------------------------------
+
+int tst_GETBLKVARZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKVARZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK %s,0\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 15;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 37. GETBLOCK VAR VAL
 //--------------------------------------------
 
@@ -2560,9 +2665,46 @@ int tst_GETBLKVARVAL(){
 // Compare pattern with template
 
 	if (strcmp(cmd_GETBLKVARVAL, cPattern) == 0){
-		sprintf (Dummy,"%04X GETBLOCK %s %d\n", event_ptr + SnapshotOffset, VARname, DataByte); 
+		sprintf (Dummy,"%04X GETBLOCK %s,%d\n", event_ptr + SnapshotOffset, VARname, DataByte); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 16;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 37. GETBLOCK VAR SPRVAR  "3AxxxxDD7Exx"
+//--------------------------------------------
+
+int tst_GETBLKVARSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02Xxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+	sprVARval = ReadParam(6);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKVARSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK %s,%s\n", event_ptr + SnapshotOffset, VARname, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 17;
 		return 1;
 	} else {
 		return 0;
@@ -2595,7 +2737,7 @@ int tst_GETBLKVALVAR(){
 // Compare pattern with template
 
 	if (strcmp(cmd_GETBLKVALVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X GETBLOCK %d %s\n", event_ptr + SnapshotOffset, DataByte, VARname); 
+		sprintf (Dummy,"%04X GETBLOCK %d,%s\n", event_ptr + SnapshotOffset, DataByte, VARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 15;
 		return 1;
@@ -2631,9 +2773,46 @@ int tst_GETBLKVALVAL(){
 // Compare pattern with template
 
 	if (strcmp(cmd_GETBLKVALVAL, cPattern) == 0){
-		sprintf (Dummy,"%04X GETBLOCK %d %d\n", event_ptr + SnapshotOffset, DataByte, DataByte2); 
+		sprintf (Dummy,"%04X GETBLOCK %d,%d\n", event_ptr + SnapshotOffset, DataByte, DataByte2); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 12;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 37. GETBLOCK VAL SPRVAR 
+//--------------------------------------------
+
+int tst_GETBLKVALSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxx%02X%02Xxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);
+	sprVARval = ReadParam(4);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKVALSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK %d,%s\n", event_ptr + SnapshotOffset, DataByte, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 15;
 		return 1;
 	} else {
 		return 0;
@@ -2665,7 +2844,7 @@ int tst_GETBLKVARVAR(){
 // Compare pattern with template
 
 	if (strcmp(cmd_GETBLKVARVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X GETBLOCK %s %s\n", event_ptr + SnapshotOffset, VARname1, VARname2); 
+		sprintf (Dummy,"%04X GETBLOCK %s,%s\n", event_ptr + SnapshotOffset, VARname1, VARname2); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 17;
 		return 1;
@@ -2674,9 +2853,128 @@ int tst_GETBLKVARVAR(){
 	}
 }
 
-/*
 //--------------------------------------------
-// 37. GETBLOCK SPRVAR SPRVAR
+// 37. GETBLOCK SPRVAR ZERO 
+//--------------------------------------------
+
+int tst_GETBLKSPRVARZERO(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02X%02Xxxxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 9]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKSPRVARZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK %s,0\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 15;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 37. GETBLOCK SPRVAR VAL 
+//--------------------------------------------
+
+int tst_GETBLKSPRVARVAL(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02Xxx%02X%02Xxxxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 10]);
+
+// Read parameters
+
+	DataByte = ReadParam(5);
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKSPRVARVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK %s,%d\n", event_ptr + SnapshotOffset, sprVARname, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 16;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 37. GETBLOCK SPRVAR VAR  
+//--------------------------------------------
+
+int tst_GETBLKSPRVARVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02Xxxxx%02X%02X%02Xxxxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8],
+		cBuff[event_ptr + 9],
+		cBuff[event_ptr + 12]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(5);
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GETBLKSPRVARVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X GETBLOCK %s,%s\n", event_ptr + SnapshotOffset, sprVARname, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 17;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 37. GETBLOCK SPRVAR SPRVAR 
 //--------------------------------------------
 
 int tst_GETBLKSPRVARSPRVAR(){
@@ -2688,29 +2986,33 @@ int tst_GETBLKSPRVARSPRVAR(){
 	
 // Read pattern from buffer
 
-	sprintf(cPattern, "%02Xxxxx%02X%02Xxxxx%02X%02Xxxxx",
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02Xxx%02X%02Xxxxx",
 		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
 		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 4]);
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8]);
 
 // Read parameters
 
-	sprVARval = ReadParam(6);
+	sprVARval = ReadParam(2);
 	const char *sprVARname = ReadSprVarName(sprVARval);
 	sprVARval = ReadParam(6);
 	const char *sprVARname1 = ReadSprVarName(sprVARval);
 
 // Compare pattern with template
 
+printf("%s,%s\n",cPattern,cmd_GETBLKSPRVARSPRVAR);
 	if (strcmp(cmd_GETBLKSPRVARSPRVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X GETBLOCK %s %s\n", event_ptr + SnapshotOffset, sprVARname, sprVARname1); 
+		sprintf (Dummy,"%04X GETBLOCK %s,%s\n", event_ptr + SnapshotOffset, sprVARname, sprVARname1); 
 		event_ptr = event_ptr + 17;
 		return 1;
 	} else {
 		return 0;
 	}
 }
-*/
 
 //--------------------------------------------
 // 38. GETBLOCKS
@@ -4743,6 +5045,225 @@ int tst_PRINTMODEVAR(){
 		sprintf (Dummy,"%04X PRINTMODE %s\n", event_ptr + SnapshotOffset, VARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 6;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 69. PUT ZERO,x,x
+//--------------------------------------------
+
+int tst_PUTZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_PUTZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X PUT 0,x,x\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 69. PUT VAL,x,x
+//--------------------------------------------
+
+int tst_PUTVAL(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_PUTVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X PUT %d,x,x\n", event_ptr + SnapshotOffset, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 69. PUT VAR,x,x
+//--------------------------------------------
+
+int tst_PUTVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_PUTVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X PUT %s,x,x\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 69. PUT SPRVAR,x,x
+//--------------------------------------------
+
+int tst_PUTSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	char cPattern1[64];
+	char cPattern2[64];
+	char cPattern3[64];
+	char cPattern4[64];
+	const char *VARname;
+	const char *sprVARname;
+	int sprVARval;
+	int flag;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_PUTSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X PUT %s,", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 4;
+
+	// Check parameter 2 for zero, val, var, sprvar
+	
+		sprintf(cPattern1, "%02X%02X%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 1],
+			cBuff[event_ptr + 2]);
+		sprintf(cPattern2, "%02Xxx%02X%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 2],
+			cBuff[event_ptr + 3]);
+		sprintf(cPattern3, "%02Xxxxx%02X%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 3],
+			cBuff[event_ptr + 4]);
+		sprintf(cPattern4, "%02X%02Xxx%02X%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 1],
+			cBuff[event_ptr + 3],
+			cBuff[event_ptr + 4]);
+		if (strcmp("AF6F22xxxx", cPattern1) == 0){
+			sprintf (Dummy,"0,"); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 5;
+		}
+		if (strcmp("3Exx6F22xxxx", cPattern2) == 0){
+			DataByte = ReadParam(1);
+			sprintf (Dummy,"%d,",DataByte); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 6;
+		}
+		if (strcmp("3Axxxx6F22xxxx", cPattern3) == 0){
+			VARname = ReadVarName(1);
+			sprintf (Dummy,"%s,",VARname); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 7;
+		}
+		if (strcmp("DD7Exx6F22xxxx", cPattern4) == 0){
+			sprVARval = ReadParam(2);
+			sprVARname = ReadSprVarName(sprVARval);
+			sprintf (Dummy,"%s,",sprVARname); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 7;
+		}
+
+// Check parameter 3 for zero, val, var, sprvar
+	
+		sprintf(cPattern1, "%02X%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 1]);
+		sprintf(cPattern2, "%02Xxx%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 2]);
+		sprintf(cPattern3, "%02Xxxxx%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 3]);
+		sprintf(cPattern4, "%02X%02Xxx%02Xxxxx",
+			cBuff[event_ptr + 0],
+			cBuff[event_ptr + 1],
+			cBuff[event_ptr + 3]);
+		flag=0;
+		if (strcmp("AFCDxxxx", cPattern1) == 0){
+			sprintf (Dummy,"0\n"); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 4;
+		}
+		if (strcmp("3ExxCDxxxx", cPattern2) == 0){
+			DataByte = ReadParam(1);
+			sprintf (Dummy,"%d\n",DataByte); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 5;
+		}
+		if (strcmp("3AxxxxCDxxxx", cPattern3) == 0){
+			VARname = ReadVarName(1);
+			sprintf (Dummy,"%s\n",VARname); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 6;
+		}
+		if (strcmp("DD7ExxCDxxxx", cPattern4) == 0){
+			sprVARval = ReadParam(2);
+			sprVARname = ReadSprVarName(sprVARval);
+			sprintf (Dummy,"%s\n",sprVARname); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 6;
+		}
 		return 1;
 	} else {
 		return 0;

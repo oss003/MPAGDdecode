@@ -214,6 +214,8 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x26:
 					if (tst_GETBLKVALVAR())       break;
+					if (tst_GETBLKZEROSPRVAR())	  break; 
+					if (tst_GETBLKVALSPRVAR())	  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -250,8 +252,10 @@ int main( int argc, const char* argv[] )
 					if (tst_ATVARVAL())           break;
 					if (tst_ATVARVAR())           break;
 					if (tst_BORDERVAR())          break;
+					if (tst_GETBLKVARZERO())	  break;
 					if (tst_GETBLKVARVAR())       break;
 					if (tst_GETBLKVARVAL())       break;
+					if (tst_GETBLKVARSPRVAR())	  break;
 					if (tst_LETSPRVAREQVAR())     break;
 					if (tst_SUB1FROMVAR())        break;
 					if (tst_SUBVARFROMSPRVAR())   break;
@@ -267,6 +271,7 @@ int main( int argc, const char* argv[] )
 					if (tst_LASERVAR())           break;
 					if (tst_REMOBJVAR())          break;
 					if (tst_STARVAR())			  break;
+					if (tst_PUTVAR())			  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -298,6 +303,7 @@ int main( int argc, const char* argv[] )
 					if (tst_PRINTVAL())           break;
 					if (tst_LASERVAL())           break;
 					if (tst_REMOBJVAL())          break;
+					if (tst_PUTVAL())			  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -317,6 +323,7 @@ int main( int argc, const char* argv[] )
 					if (tst_INKZERO())            break;
 					if (tst_LASERZERO())          break;
 					if (tst_REMOBJZERO())         break;
+					if (tst_PUTZERO())			  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -381,6 +388,11 @@ int main( int argc, const char* argv[] )
 					if (tst_DELAYVAR())           break;
 					if (tst_LASERSPRVAR())        break;
 					if (tst_REMOBJSPRVAR())       break;
+					if (tst_GETBLKSPRVARZERO())	  break;
+					if (tst_GETBLKSPRVARVAL())	  break;
+					if (tst_GETBLKSPRVARVAR())	  break;
+//					if (tst_GETBLKSPRVARSPRVAR()) break;
+					if (tst_PUTSPRVAR())		  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;

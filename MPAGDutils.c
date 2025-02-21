@@ -568,7 +568,6 @@ printf("msgdat:%04X\n",msgdata);
 	sprintf(cmd_STOPFALL	 ,"CD%02X%02X"				,CallGravst  & 0xff, CallGravst  >> 8);
 	sprintf(cmd_TABLEFALL    ,"CD%02X%02X"  	        ,CallTfall  & 0xff, CallTfall  >> 8);
 	sprintf(cmd_TABLEJUMP    ,"CD%02X%02X"  	        ,CallTjump  & 0xff, CallTjump  >> 8);
-
 	sprintf(cmd_WAITKEY		 ,"CD%02X%02X"			    ,CallWaitkey  & 0xff, CallWaitkey  >> 8);
 	sprintf(cmd_ZEROBONUS    ,"21%02X%02X010500363011"  ,bonus  & 0xff, bonus  >> 8);
 

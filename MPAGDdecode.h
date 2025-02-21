@@ -1,5 +1,5 @@
 #define SnapshotOffset	(0x4000 - 0x1b)
-#define debug 0
+#define debug 1
 
 int CodeStart;
 int EngineStart;
@@ -166,10 +166,27 @@ char cmd_ENDSPRITE[]		= "DD2Axxxx";
 char cmd_EXPLVAR[]			= "3AxxxxCDxxxx";
 char cmd_EXPLVAL[]			= "3ExxCDxxxx";
 char cmd_FALL[]				= "C3xxxx";
-char cmd_GETBLKVARVAR[]		= "3Axxxx673Axxxx";
+
+//char cmd_GETBLKZEROZERO[]	= "210000CDxxxx";
+//char cmd_GETBLKZEROVAL[]	= "21xxxx22xxxxCDxxxx";
+char cmd_GETBLKZEROVAR[]	= "26003Axxxx6F";
+char cmd_GETBLKZEROSPRVAR[]	= "2600DD7Exx6F";
+
+char cmd_GETBLKVARZERO[]	= "3Axxxx67AF6F";
 char cmd_GETBLKVARVAL[]		= "3Axxxx673Exx";
-char cmd_GETBLKVALVAR[]		= "26xx3Axxxx6F22";
+char cmd_GETBLKVARVAR[]		= "3Axxxx673Axxxx";
+char cmd_GETBLKVARSPRVAR[]	= "3Axxxx67DD7Exx";
+
+//char cmd_GETBLKVALZERO[]	= "2100xx";
 char cmd_GETBLKVALVAL[]		= "21xxxx22xxxxCDxxxx32xxxx";
+char cmd_GETBLKVALVAR[]		= "26xx3Axxxx6F22";
+char cmd_GETBLKVALSPRVAR[]	= "26xxDD7Exx6F";
+
+char cmd_GETBLKSPRVARZERO[]	= "DD7Exx67AF6F22xxxxCD";
+char cmd_GETBLKSPRVARVAL[]	= "DD7Exx673Exx6F22xxxxCD";
+char cmd_GETBLKSPRVARVAR[]	= "DD7Exx673Axxxx6F22xxxxCD";
+char cmd_GETBLKSPRVARSPRVAR[]	= "DD7Exx67DD7Exx6F22xxxx";
+
 char cmd_GETBLOCKS[]		= "CDxxxx";
 char cmd_GETRANDOMVAR[]		= "3Axxxx57CDxxxx67CDxxxx7C32xxxx";
 char cmd_GETRANDOMVAL[]		= "3Exx57CDxxxx67CDxxxx7C32xxxx";
