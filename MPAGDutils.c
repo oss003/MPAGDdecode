@@ -470,6 +470,7 @@ void Init(){
 	CallRemob	= FindAddress("BED0F5CD") - 3;
 	CallTfall	= FindAddress("DD7E0DA7C0CD");
 	CallTjump   = FindAddress("DD7E0DA7C0DD360D");
+	CallPut		= FindAddress("BEC87723") - 11;
 	
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
@@ -550,6 +551,7 @@ printf("msgdat:%04X\n",msgdata);
 	sprintf(cmd_PRINTMODEZERO,"AF32%02X%02X"            ,prtmod  & 0xff, prtmod  >> 8);
 	sprintf(cmd_PRINTVAL     ,"3ExxCD%02X%02X"          ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_PRINTZERO    ,"AFCD%02X%02X"            ,CallDmsg  & 0xff, CallDmsg  >> 8);
+	sprintf(cmd_PUT			 ,"CD%02X%02X"              ,CallPut  & 0xff, CallPut  >> 8);
 	sprintf(cmd_REDRAW       ,"CD%02X%02X"              ,CallRedraw  & 0xff, CallRedraw  >> 8);
 	sprintf(cmd_REMOBJZERO   ,"AFCD%02X%02X"           	,CallRemob  & 0xff, CallRemob  >> 8);
 	sprintf(cmd_REMOBJVAL    ,"3ExxCD%02X%02X"       	,CallRemob  & 0xff, CallRemob  >> 8);
@@ -632,7 +634,6 @@ printf("msgdat:%04X\n",msgdata);
 
 int PrintIdent(int Nr){
 
-//return 0;
 		int i;
 		
 		for (i = 0; i <  Nr; i++){

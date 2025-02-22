@@ -1,5 +1,5 @@
 #define SnapshotOffset	(0x4000 - 0x1b)
-#define debug 1
+#define debug 0
 
 int CodeStart;
 int EngineStart;
@@ -35,6 +35,7 @@ int CallLadderU;
 int CallLadderD;
 int CallJump;
 int CallDmsg;
+int CallPut;
 int CallSwpsb;
 int CallLcol;
 int CallWaitkey;
@@ -166,27 +167,22 @@ char cmd_ENDSPRITE[]		= "DD2Axxxx";
 char cmd_EXPLVAR[]			= "3AxxxxCDxxxx";
 char cmd_EXPLVAL[]			= "3ExxCDxxxx";
 char cmd_FALL[]				= "C3xxxx";
-
 //char cmd_GETBLKZEROZERO[]	= "210000CDxxxx";
 //char cmd_GETBLKZEROVAL[]	= "21xxxx22xxxxCDxxxx";
 char cmd_GETBLKZEROVAR[]	= "26003Axxxx6F";
 char cmd_GETBLKZEROSPRVAR[]	= "2600DD7Exx6F";
-
 char cmd_GETBLKVARZERO[]	= "3Axxxx67AF6F";
 char cmd_GETBLKVARVAL[]		= "3Axxxx673Exx";
 char cmd_GETBLKVARVAR[]		= "3Axxxx673Axxxx";
 char cmd_GETBLKVARSPRVAR[]	= "3Axxxx67DD7Exx";
-
 //char cmd_GETBLKVALZERO[]	= "2100xx";
 char cmd_GETBLKVALVAL[]		= "21xxxx22xxxxCDxxxx32xxxx";
 char cmd_GETBLKVALVAR[]		= "26xx3Axxxx6F22";
 char cmd_GETBLKVALSPRVAR[]	= "26xxDD7Exx6F";
-
 char cmd_GETBLKSPRVARZERO[]	= "DD7Exx67AF6F22xxxxCD";
 char cmd_GETBLKSPRVARVAL[]	= "DD7Exx673Exx6F22xxxxCD";
 char cmd_GETBLKSPRVARVAR[]	= "DD7Exx673Axxxx6F22xxxxCD";
-char cmd_GETBLKSPRVARSPRVAR[]	= "DD7Exx67DD7Exx6F22xxxx";
-
+char cmd_GETBLKSPRVARSPRVAR[]	= "DD7Exx67DD7Exx6F22xxxxCD";
 char cmd_GETBLOCKS[]		= "CDxxxx";
 char cmd_GETRANDOMVAR[]		= "3Axxxx57CDxxxx67CDxxxx7C32xxxx";
 char cmd_GETRANDOMVAL[]		= "3Exx57CDxxxx67CDxxxx7C32xxxx";
@@ -263,22 +259,15 @@ char cmd_PRINTVAL[]			= "3ExxCDxxxx";
 char cmd_PUTBLOCKZERO[]		= "21xxxx22xxxx2Axxxx22xxxxAF";
 char cmd_PUTBLOCKVAL[]		= "21xxxx22xxxx2Axxxx22xxxx3Exx";
 char cmd_PUTBLOCKVAR[]		= "21xxxx22xxxx2Axxxx22xxxx3Axxxx";
-
-char cmd_PUTZERO[]			= "AF67";
-char cmd_PUTVAL[]			= "3Exx67";
-char cmd_PUTVAR[]			= "3Axxxx67";
-char cmd_PUTSPRVAR[]		= "DD7Exx67";
-
+char cmd_PUT[]				= "CDxxxx";
 char cmd_READVAR[]			= "CDxxxx32xxxx";
 char cmd_READSPRVAR[]		= "CDxxxxDD77xx";
 char cmd_REDRAW[]			= "CDxxxx";
 char cmd_REMOVE[]			= "DD3605FF";
-
 char cmd_REMOBJZERO[]		= "AFCDxxxx";
 char cmd_REMOBJVAL[]		= "3ExxCDxxxx";
 char cmd_REMOBJVAR[]		= "3AxxxxCDxxxx";
 char cmd_REMOBJSPRVAR[]		= "DD7ExxCDxxxx";
-
 char cmd_REPEATZERO[]		= "AF32xxxx";					// Test before LETVAREQVAR
 char cmd_REPEATVAR[]		= "3Axxxx32815C";				// Test before LETVAREQVAR
 char cmd_REPEATVAL[]		= "3Exx32xxxx";					// Test before LETVAREQVAL!!

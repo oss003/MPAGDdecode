@@ -271,7 +271,7 @@ int main( int argc, const char* argv[] )
 					if (tst_LASERVAR())           break;
 					if (tst_REMOBJVAR())          break;
 					if (tst_STARVAR())			  break;
-					if (tst_PUTVAR())			  break;
+					if (tst_PUT())				  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -303,7 +303,7 @@ int main( int argc, const char* argv[] )
 					if (tst_PRINTVAL())           break;
 					if (tst_LASERVAL())           break;
 					if (tst_REMOBJVAL())          break;
-					if (tst_PUTVAL())			  break;
+					if (tst_PUT())				  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -323,7 +323,7 @@ int main( int argc, const char* argv[] )
 					if (tst_INKZERO())            break;
 					if (tst_LASERZERO())          break;
 					if (tst_REMOBJZERO())         break;
-					if (tst_PUTZERO())			  break;
+					if (tst_PUT())				  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -391,8 +391,8 @@ int main( int argc, const char* argv[] )
 					if (tst_GETBLKSPRVARZERO())	  break;
 					if (tst_GETBLKSPRVARVAL())	  break;
 					if (tst_GETBLKSPRVARVAR())	  break;
-//					if (tst_GETBLKSPRVARSPRVAR()) break;
-					if (tst_PUTSPRVAR())		  break;
+					if (tst_GETBLKSPRVARSPRVAR()) break;
+					if (tst_PUT())				  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
