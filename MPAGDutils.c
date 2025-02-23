@@ -472,7 +472,7 @@ void Init(){
 	CallTfall	= FindAddress("DD7E0DA7C0CD");
 	CallTjump   = FindAddress("DD7E0DA7C0DD360D");
 	CallPut		= FindAddress("BEC87723") - 11;
-	
+	CallVapour	= FindAddress("DDE5DD6E08DD660911");
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
 	evntloc		= FindAddress("5E2356EBE9") - SnapshotOffset + 7;
@@ -490,6 +490,7 @@ void Init(){
 	gamwon		= VarAddress + 41;
 	ogptr		= evntloc + SnapshotOffset - 2;
 	score		= FindAddress("7BFE18D8E1C9") - 20;
+	seed		= score - 1;
 	hiscor		= score + 6;
 	bonus		= hiscor + 6;
 	spptr		= score - 3;
@@ -509,6 +510,8 @@ void Init(){
 
 	sprintf(cmd_ATVALVAL     ,"21xxxx22%02X%02X"        ,(VarAddress + 31)  & 0xff, (VarAddress + 31)  >> 8);
 	sprintf(cmd_BEEPVAL      ,"3Exx32%02X%02X"          ,sndtype  & 0xff, sndtype  >> 8);
+	sprintf(cmd_BEEPVAR      ,"3AxxxxE67F32%02X%02X"    ,sndtype  & 0xff, sndtype  >> 8);
+	sprintf(cmd_BEEPSPRVAR   ,"DD7ExxE67F32%02X%02X"    ,sndtype  & 0xff, sndtype  >> 8);
 	sprintf(cmd_BONUSVAL     ,"CD%02X%02X21xxxxCDxxxx"  ,CallSwpsb  & 0xff, CallSwpsb  >> 8);
 	sprintf(cmd_BONUSVAR     ,"CD%02X%02X3Axxxx6F2600"  ,CallSwpsb  & 0xff, CallSwpsb  >> 8);
 	sprintf(cmd_CANGOLEFT    ,"CD%02X%02XC2xxxx"        ,CallCangoL & 0xff, CallCangoL >> 8);
@@ -557,6 +560,10 @@ void Init(){
 	sprintf(cmd_PRINTVAL     ,"3ExxCD%02X%02X"          ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_PRINTZERO    ,"AFCD%02X%02X"            ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_PUT			 ,"CD%02X%02X"              ,CallPut  & 0xff, CallPut  >> 8);
+
+	sprintf(cmd_RANDOMIZEVAL ,"3Exx32%02X%02X"          ,seed  & 0xff, seed  >> 8);
+	sprintf(cmd_RANDOMIZEVAR ,"3Axxxx32%02X%02X"        ,seed  & 0xff, seed  >> 8);
+
 	sprintf(cmd_REDRAW       ,"CD%02X%02X"              ,CallRedraw  & 0xff, CallRedraw  >> 8);
 	sprintf(cmd_REMOBJZERO   ,"AFCD%02X%02X"           	,CallRemob  & 0xff, CallRemob  >> 8);
 	sprintf(cmd_REMOBJVAL    ,"3ExxCD%02X%02X"       	,CallRemob  & 0xff, CallRemob  >> 8);
@@ -575,6 +582,7 @@ void Init(){
 	sprintf(cmd_STOPFALL	 ,"CD%02X%02X"				,CallGravst  & 0xff, CallGravst  >> 8);
 	sprintf(cmd_TABLEFALL    ,"CD%02X%02X"  	        ,CallTfall  & 0xff, CallTfall  >> 8);
 	sprintf(cmd_TABLEJUMP    ,"CD%02X%02X"  	        ,CallTjump  & 0xff, CallTjump  >> 8);
+	sprintf(cmd_TRAIL	     ,"CD%02X%02X"  	        ,CallVapour  & 0xff, CallVapour  >> 8);
 	sprintf(cmd_WAITKEY		 ,"CD%02X%02X"			    ,CallWaitkey  & 0xff, CallWaitkey  >> 8);
 	sprintf(cmd_ZEROBONUS    ,"21%02X%02X010500363011"  ,bonus  & 0xff, bonus  >> 8);
 

@@ -933,11 +933,13 @@ int tst_BEEPVAR(){
 
 // Read pattern from buffer
 
-	sprintf(cPattern, "%02Xxxxx%02X%02X%02Xxxxx",
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X%02X%02X",
 		cBuff[event_ptr + 0],
 		cBuff[event_ptr + 3],
 		cBuff[event_ptr + 4],
-		cBuff[event_ptr + 5]);
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7]);
 
 // Read parameters
 
@@ -959,34 +961,73 @@ int tst_BEEPVAR(){
 // 7. BEEP VAL
 //--------------------------------------------
 
-//int tst_BEEPVAL(){
+int tst_BEEPVAL(){
 
 // Define variables
 
-//	char cPattern[64];
+	char cPattern[64];
 
 // Read pattern from buffer
 
-//	sprintf(cPattern, "%02Xxx%02X%02X%02X",
-//		cBuff[event_ptr + 0],
-//		cBuff[event_ptr + 2],
-//		cBuff[event_ptr + 3],
-//		cBuff[event_ptr + 4]);
+	sprintf(cPattern, "%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
 
 // Read parameters
 
-//	DataByte = ReadParam(1);			// Read colour
+	DataByte = ReadParam(1);			// Read colour
 
 // Compare pattern with template
 
-//	if (strcmp(cmd_BEEPVAL, cPattern) == 0){
-//		sprintf (Dummy,"%04X BEEP %d\n", event_ptr + SnapshotOffset, DataByte); 
-//		event_ptr = event_ptr + 5;
-//		return 1;
-//	} else {
-//		return 0;
-//	}
-//}
+	if (strcmp(cmd_BEEPVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X BEEP %d\n", event_ptr + SnapshotOffset, DataByte); 
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 7. BEEP SPRVAR
+//--------------------------------------------
+
+int tst_BEEPSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_BEEPSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X BEEP %s\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 8;
+		return 1;
+	} else {
+		return 0;
+	}
+}
 
 //--------------------------------------------
 // 8. BONUS VAL
@@ -5447,6 +5488,74 @@ int tst_PUTBLOCKVAR(){
 }
 
 //--------------------------------------------
+// 71. RANDOMIZE VAL
+//--------------------------------------------
+
+int tst_RANDOMIZEVAL(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);			// Read colour
+
+// Compare pattern with template
+
+	if (strcmp(cmd_RANDOMIZEVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X RANDOMIZE %d\n", event_ptr + SnapshotOffset, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 71. RANDOMIZE VAR
+//--------------------------------------------
+
+int tst_RANDOMIZEVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_RANDOMIZEVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X RANDOMIZE %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 72. READ VAR
 //--------------------------------------------
 
@@ -6575,6 +6684,42 @@ int tst_SPRITEUP(){
 }
 
 //--------------------------------------------
+// 96. STAR ZERO
+//--------------------------------------------
+
+int tst_STARZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02Xxxxx%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);			// Read colour
+
+// Compare pattern with template
+
+	if (strcmp(cmd_STARZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X STAR 0\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 96. STAR VAL
 //--------------------------------------------
 
@@ -6601,7 +6746,7 @@ int tst_STARVAL(){
 // Compare pattern with template
 
 	if (strcmp(cmd_STARVAL, cPattern) == 0){
-		sprintf (Dummy,"%04X STAR %s\n", event_ptr + SnapshotOffset, KeyString[DataByte]); 
+		sprintf (Dummy,"%04X STAR %d\n", event_ptr + SnapshotOffset, DataByte); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 11;
 		return 1;
@@ -6611,7 +6756,7 @@ int tst_STARVAL(){
 }
 
 //--------------------------------------------
-// 96. STAR VAR 3Axxxx4FCDxxxxE603CCxxxx";
+// 96. STAR VAR 
 //--------------------------------------------
 
 int tst_STARVAR(){
@@ -6622,22 +6767,61 @@ int tst_STARVAR(){
 
 // Read pattern from buffer
 
-	sprintf(cPattern, "%02Xxxxx%02X%02Xxxxx%02X%02Xxxxx",
+	sprintf(cPattern, "%02Xxxxx%02X%02Xxxxx%02X%02X%02Xxxxx",
 		cBuff[event_ptr + 0],
 		cBuff[event_ptr + 3],
 		cBuff[event_ptr + 4],
 		cBuff[event_ptr + 7],
-		cBuff[event_ptr + 8]);
+		cBuff[event_ptr + 8],
+		cBuff[event_ptr + 9]);
 
 // Read parameters
 
 	const char *VARname = ReadVarName(1);
 
-
 // Compare pattern with template
 
 	if (strcmp(cmd_STARVAR, cPattern) == 0){
 		sprintf (Dummy,"%04X STAR %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 12;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 96. STAR SPRVAR 
+//--------------------------------------------
+
+int tst_STARSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02Xxxxx%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8],
+		cBuff[event_ptr + 9]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_STARSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X STAR %s\n", event_ptr + SnapshotOffset, sprVARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 12;
 		return 1;
@@ -6727,6 +6911,73 @@ int tst_TABLEJUMP(){
 		sprintf (Dummy,"%04X TABLEJUMP\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 3;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 101. TRAIL
+//--------------------------------------------
+
+int tst_TRAIL(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_TRAIL, cPattern) == 0){
+		sprintf (Dummy,"%04X TRAIL\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 3;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 102. UNDOSPRITEMOVE
+//--------------------------------------------
+
+int tst_UNDOSPRITEMOVE(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8],
+		cBuff[event_ptr + 9],
+		cBuff[event_ptr + 10],
+		cBuff[event_ptr + 11]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_UNDOSPRITEMOVE, cPattern) == 0){
+		sprintf (Dummy,"%04X UNDOSPRITEMOVE\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 12;
 		return 1;
 	} else {
 		return 0;

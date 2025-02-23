@@ -223,8 +223,10 @@ int main( int argc, const char* argv[] )
 					event_ptr++;
 					break;
 				case 0x3a:
+					if (tst_RANDOMIZEVAR())		  break;
 					if (tst_IFWHILE(1))           break;
-					if (tst_CRASHVAR())          break;
+					if (tst_STARVAR())			  break;
+					if (tst_CRASHVAR())           break;
 					if (tst_MULVAR())             break;
 					if (tst_DIVVAR())             break;
 					if (tst_JUMPVAR())            break;
@@ -268,12 +270,12 @@ int main( int argc, const char* argv[] )
 					if (tst_MESSAGEVAR())         break;
 					if (tst_LASERVAR())           break;
 					if (tst_REMOBJVAR())          break;
-					if (tst_STARVAR())			  break;
 					if (tst_PUT())				  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x3e:
+					if (tst_RANDOMIZEVAL())		  break;
 					if (tst_IFWHILE(2))           break;
 					if (tst_CRASHZERO())          break;
 					if (tst_CRASHVAL())           break;
@@ -294,7 +296,7 @@ int main( int argc, const char* argv[] )
 					if (tst_ANIMBACKVSLOW())      break;
 					if (tst_ANIMBACKSLOW())       break;
 					if (tst_ANIMBACKMED())        break;
-//					if (tst_BEEPVAL())            break;
+					if (tst_BEEPVAL())            break;
 					if (tst_CHRVAL())             break;
 					if (tst_BORDERVAL())          break;
 					if (tst_REPEATVAL())          break;
@@ -310,6 +312,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0xaf:
 					if (tst_IFWHILE(3))           break;
+					if (tst_STARZERO())			  break;
 					if (tst_COLOURZERO())         break;
 					if (tst_REPEATZERO())         break;
 					if (tst_PAPERZERO())          break;
@@ -336,6 +339,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0xcd:
 					if (tst_WAITKEY())            break;
+					if (tst_TRAIL())			  break;
 					if (tst_DEFINEKEY())          break;
 					if (tst_GETBLOCKS())          break;
 					if (tst_DETECTOBJ())          break;
@@ -367,6 +371,9 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0xdd:
 					if (tst_IFWHILE(4))           break;
+					if (tst_BEEPSPRVAR())		  break;
+					if (tst_STARSPRVAR())		  break;
+					if (tst_UNDOSPRITEMOVE())	  break;
 					if (tst_CRASHSPRVAR())        break;
 					if (tst_MULSPRVAR())          break;
 					if (tst_DIVSPRVAR())          break;
