@@ -6918,6 +6918,212 @@ int tst_TABLEJUMP(){
 }
 
 //--------------------------------------------
+// 100. TICKER ZERO
+//--------------------------------------------
+
+int tst_TICKERZERO(){
+
+// Define variables
+
+	char cPattern[64];
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X" ,
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_TICKERZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X TICKER 0\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 100. TICKER VAL VAL 
+//--------------------------------------------
+
+int tst_TICKERVALVAL(){
+
+// Define variables
+
+	char cPattern[64];
+	int DataByte2;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3]);
+
+// Read parameters
+
+	DataByte = ReadParam(2);
+	DataByte2 = ReadParam(1);
+	
+// Compare pattern with template
+
+	if (strcmp(cmd_TICKERVALVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X TICKER %d,%d\n", event_ptr + SnapshotOffset, DataByte, DataByte2); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 100. TICKER VAL VAR 
+//--------------------------------------------
+
+int tst_TICKERVALVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxx%02X%02Xxxxx%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);
+	const char *VARname = ReadVarName(4);
+	
+// Compare pattern with template
+
+	if (strcmp(cmd_TICKERVALVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X TICKER %d,%s\n", event_ptr + SnapshotOffset, DataByte, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 100. TICKER VAR ZERO 
+//--------------------------------------------
+
+int tst_TICKERVARZERO(){
+
+// Define variables
+
+	char cPattern[64];
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+	
+// Compare pattern with template
+
+	if (strcmp(cmd_TICKERVARZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X TICKER %s,0\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 9;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 100. TICKER VAR VAL 
+//--------------------------------------------
+
+int tst_TICKERVARVAL(){
+
+// Define variables
+
+	char cPattern[64];
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02Xxx%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7]);
+
+// Read parameters
+
+	DataByte = ReadParam(5);
+	const char *VARname = ReadVarName(1);
+	
+// Compare pattern with template
+
+	if (strcmp(cmd_TICKERVARVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X TICKER %s,%d\n", event_ptr + SnapshotOffset, VARname, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 100. TICKER VAR VAR 
+//--------------------------------------------
+
+int tst_TICKERVARVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02Xxxxx%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+	const char *VARname1 = ReadVarName(5);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_TICKERVARVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X TICKER %s,%s\n", event_ptr + SnapshotOffset, VARname, VARname1); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 101. TRAIL
 //--------------------------------------------
 

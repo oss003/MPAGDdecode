@@ -315,6 +315,15 @@ char cmd_STARSPRVAR[]		= "DD7Exx4FCDxxxxE603CCxxxx";
 char cmd_STOPFALL[]			= "CDxxxx";
 char cmd_TABLEFALL[]		= "CDxxxx";
 char cmd_TABLEJUMP[]		= "CDxxxx";
+
+char cmd_TICKERZERO[]		= "21xxxx36C9";
+char cmd_TICKERVALVAL[]		= "01xxxxCDxxxx";
+char cmd_TICKERVALVAR[]		= "3Exx473Axxxx4FCD";
+
+char cmd_TICKERVARZERO[]	= "3Axxxx47AF4FCD";
+char cmd_TICKERVARVAL[]		= "3Axxxx473Exx4FCD";
+char cmd_TICKERVARVAR[]		= "3Axxxx473Axxxx4FCD";
+
 char cmd_TRAIL[]			= "CDxxxx";
 char cmd_UNDOSPRITEMOVE[]	= "DD7E03DD7708DD7E04DD7709";
 char cmd_WAITKEY[]			= "CDxxxx";						// Test before READVAR and READSPRVAR!!

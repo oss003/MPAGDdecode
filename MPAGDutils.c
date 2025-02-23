@@ -560,10 +560,8 @@ void Init(){
 	sprintf(cmd_PRINTVAL     ,"3ExxCD%02X%02X"          ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_PRINTZERO    ,"AFCD%02X%02X"            ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_PUT			 ,"CD%02X%02X"              ,CallPut  & 0xff, CallPut  >> 8);
-
 	sprintf(cmd_RANDOMIZEVAL ,"3Exx32%02X%02X"          ,seed  & 0xff, seed  >> 8);
 	sprintf(cmd_RANDOMIZEVAR ,"3Axxxx32%02X%02X"        ,seed  & 0xff, seed  >> 8);
-
 	sprintf(cmd_REDRAW       ,"CD%02X%02X"              ,CallRedraw  & 0xff, CallRedraw  >> 8);
 	sprintf(cmd_REMOBJZERO   ,"AFCD%02X%02X"           	,CallRemob  & 0xff, CallRemob  >> 8);
 	sprintf(cmd_REMOBJVAL    ,"3ExxCD%02X%02X"       	,CallRemob  & 0xff, CallRemob  >> 8);

@@ -173,6 +173,7 @@ int main( int argc, const char* argv[] )
 			switch(cBuff[event_ptr]){
 				case 0x01:
 					if (tst_SPAWNVALVAL())        break;
+					if (tst_TICKERVALVAL())		  break;
 //					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
@@ -193,6 +194,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x21:
 					if (tst_RESTART())            break;
+					if (tst_TICKERZERO())		  break;
 					if (tst_ENDREPEAT())          break;
 					if (tst_PUTBLOCKZERO())       break;
 					if (tst_PUTBLOCKVAL())        break;
@@ -225,6 +227,9 @@ int main( int argc, const char* argv[] )
 				case 0x3a:
 					if (tst_RANDOMIZEVAR())		  break;
 					if (tst_IFWHILE(1))           break;
+					if (tst_TICKERVARZERO())	  break;
+					if (tst_TICKERVARVAL())		  break;
+					if (tst_TICKERVARVAR())		  break;
 					if (tst_STARVAR())			  break;
 					if (tst_CRASHVAR())           break;
 					if (tst_MULVAR())             break;
@@ -277,6 +282,7 @@ int main( int argc, const char* argv[] )
 				case 0x3e:
 					if (tst_RANDOMIZEVAL())		  break;
 					if (tst_IFWHILE(2))           break;
+					if (tst_TICKERVALVAR())		  break;
 					if (tst_CRASHZERO())          break;
 					if (tst_CRASHVAL())           break;
 					if (tst_PRINTMODEVAL())       break;
