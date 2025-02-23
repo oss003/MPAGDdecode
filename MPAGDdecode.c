@@ -139,12 +139,13 @@ int main( int argc, const char* argv[] )
 	Init();
 	Info();
 	
+// Locate start of eventdata
+
 	Address = FindAddress("C5DD7E003C20") - SnapshotOffset - 20;
 	data_ptr = cBuff[Address] + (cBuff[Address + 1] << 8) - SnapshotOffset ;
 	sprintf(Dummy,"EventData:%04X-%04X\n",data_ptr, data_ptr + SnapshotOffset);
 	PrtReport(Dummy,3);
 	
-
 //
 // Start decoding
 //
@@ -168,9 +169,6 @@ int main( int argc, const char* argv[] )
 			CheckDATAstack (event_ptr + SnapshotOffset);
 			CheckWHILEstack (event_ptr + SnapshotOffset);
 			CheckIFstack (event_ptr + SnapshotOffset);
-//			if (iflag == 0){
-//				PrintIdent(ident);
-//			}
 			
 			switch(cBuff[event_ptr]){
 				case 0x01:
@@ -293,6 +291,9 @@ int main( int argc, const char* argv[] )
 					if (tst_ANIMVSLOW())          break;
 					if (tst_ANIMSLOW())           break;
 					if (tst_ANIMMED())            break;
+					if (tst_ANIMBACKVSLOW())      break;
+					if (tst_ANIMBACKSLOW())       break;
+					if (tst_ANIMBACKMED())        break;
 //					if (tst_BEEPVAL())            break;
 					if (tst_CHRVAL())             break;
 					if (tst_BORDERVAL())          break;
@@ -316,6 +317,7 @@ int main( int argc, const char* argv[] )
 					if (tst_LETVAREQZERO())       break;
 					if (tst_IFGOTZERO())          break;
 					if (tst_ANIMATE())            break;
+					if (tst_ANIMBACK())			  break;
 					if (tst_LETSPRVAREQZERO())    break;
 					if (tst_BORDERZERO())         break;
 //					if (tst_MESSAGEZERO())        break; // Same as PRINT!!!!

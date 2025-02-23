@@ -14,6 +14,7 @@ int CallCspr;
 int CallSktype;
 int CallRandom;
 int CallAnimesp;
+int CallAnimBack;
 int CallAddSc;
 int CallPrtmod;
 int CallChr;
@@ -82,6 +83,8 @@ int numsc;
 
 int nmedat;
 
+int nummsg;
+
 char cmd_ADDBONUS[]			= "CD4D71";
 char cmd_ADD1TOVAR[]		= "3Axxxx3C32xxxx";
 char cmd_ADD1TOSPRVAR[]		= "DD7Exx3C";
@@ -97,6 +100,12 @@ char cmd_SUBVARFROMSPRVAR[]	= "3Axxxx4FDD7Exx91DD77xx";
 char cmd_SUBSPRVARFROMVAR[]	= "DD7Exx4F3Axxxx9132xxxx";
 char cmd_SUBVALFROMVAR[]	= "0Exx3Axxxx9132xxxx";
 char cmd_SUBVALFROMSPRVAR[]	= "0ExxDD7Exx91DD77xx";
+
+char cmd_ANIMBACK[]         = "AFCDxxxx";
+char cmd_ANIMBACKVSLOW[]	= "3E07CDxxxx";
+char cmd_ANIMBACKSLOW[]		= "3E03CDxxxx";
+char cmd_ANIMBACKMED[]		= "3E01CDxxxx";
+
 char cmd_ANIMATE[]          = "AFCDxxxx";
 char cmd_ANIMVSLOW[]		= "3E07CDxxxx";
 char cmd_ANIMSLOW[]			= "3E03CDxxxx";

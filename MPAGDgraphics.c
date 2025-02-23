@@ -51,8 +51,16 @@ int height;
 	for (i = 4; i < 11; i++){
 		printf("\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + i]));
 	}
-	printf ("\n\n");
+	printf ("\n");
 
+// DEFINEMESSAGES
+
+	printf("\nDEFINEMESSAGES\n"); 
+	for (i=0; i<nummsg; i++){
+		printf("\t\t\"%s\"\n",MSG[i]);
+	}
+	printf("\n");
+	
 // DEFINEBLOCK
 
 	for (i = 0; i < numblk; i++){

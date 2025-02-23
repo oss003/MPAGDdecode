@@ -653,6 +653,129 @@ int tst_ANIMMED(){
 }
 
 //--------------------------------------------
+// 4. ANIMBACK
+//--------------------------------------------
+
+int tst_ANIMBACK(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_ANIMBACK, cPattern) == 0){
+		sprintf (Dummy,"%04X ANIMBACK\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 4;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 4. ANIMBACK VERYSLOW
+//--------------------------------------------
+
+int tst_ANIMBACKVSLOW(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_ANIMBACKVSLOW, cPattern) == 0){
+		sprintf (Dummy,"%04X ANIMBACK VERYSLOW\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 4. ANIMBACK SLOW
+//--------------------------------------------
+
+int tst_ANIMBACKSLOW(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_ANIMBACKSLOW, cPattern) == 0){
+		sprintf (Dummy,"%04X ANIMBACK SLOW\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 4. ANIMBACK MEDIUM
+//--------------------------------------------
+
+int tst_ANIMBACKMED(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_ANIMBACKMED, cPattern) == 0){
+		sprintf (Dummy,"%04X ANIMBACK MEDIUM\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 6. AT VAL VAL
 //--------------------------------------------
 
@@ -4910,8 +5033,8 @@ int tst_PRINTZERO(){
 // Compare pattern with template
 
 	if (strcmp(cmd_PRINTZERO, cPattern) == 0){
-//		cMsg = GetMsgString(0);
-		sprintf (Dummy,"%04X PRINT \"%s\"\n", event_ptr + SnapshotOffset, MSG[0]); 
+//		sprintf (Dummy,"%04X PRINT \"%s\"\n", event_ptr + SnapshotOffset, MSG[0]); 
+		sprintf (Dummy,"%04X MESSAGE 0\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 4;
 		return 1;
@@ -4944,7 +5067,8 @@ int tst_PRINTVAL(){
 // Compare pattern with template
 
 	if (strcmp(cmd_PRINTVAL, cPattern) == 0){
-		sprintf (Dummy,"%04X PRINT \"%s\"\n", event_ptr + SnapshotOffset, MSG[DataByte]); 
+//		sprintf (Dummy,"%04X PRINT \"%s\"\n", event_ptr + SnapshotOffset, MSG[DataByte]); 
+		sprintf (Dummy,"%04X MESSAGE %d\n", event_ptr + SnapshotOffset, DataByte); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 5;
 		return 1;
@@ -5052,7 +5176,7 @@ int tst_PRINTMODEVAR(){
 }
 
 //--------------------------------------------
-// 69. PUT ZERO,x,x
+// 69. PUT x,x,x
 //--------------------------------------------
 
 int tst_PUT(){

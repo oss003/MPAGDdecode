@@ -440,6 +440,7 @@ void Init(){
 	CallSktype  = FindAddress("7E3D18") + 4;
 	CallRandom  = FindAddress("7E470F0F0F") - 3;
 	CallAnimesp = FindAddress("D82638C9") + 4;
+	CallAnimBack= CallAnimesp + 24;
 	CallAddSc   = FindAddress("011027CD") - 3;
 	CallPrtmod	= FindAddress("347EFE1838") + 13;
 	CallChr		= FindAddress("A778C2") - 7;
@@ -477,8 +478,6 @@ void Init(){
 	evntloc		= FindAddress("5E2356EBE9") - SnapshotOffset + 7;
 	msgdata		= FindAddress("E51601AF32") - SnapshotOffset - 5;
 
-printf("msgdat:%04X\n",msgdata);
-
 // Calculate locations in engine
 
 	VarAddress  = EngineStart;
@@ -502,6 +501,12 @@ printf("msgdat:%04X\n",msgdata);
 	sprintf(cmd_ANIMMED      ,"3E01CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
 	sprintf(cmd_ANIMSLOW	 ,"3E03CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
 	sprintf(cmd_ANIMVSLOW	 ,"3E07CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
+
+	sprintf(cmd_ANIMBACK      ,"AFCD%02X%02X"           ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
+	sprintf(cmd_ANIMBACKMED   ,"3E01CD%02X%02X"         ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
+	sprintf(cmd_ANIMBACKSLOW  ,"3E03CD%02X%02X"         ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
+	sprintf(cmd_ANIMBACKVSLOW ,"3E07CD%02X%02X"         ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
+
 	sprintf(cmd_ATVALVAL     ,"21xxxx22%02X%02X"        ,(VarAddress + 31)  & 0xff, (VarAddress + 31)  >> 8);
 	sprintf(cmd_BEEPVAL      ,"3Exx32%02X%02X"          ,sndtype  & 0xff, sndtype  >> 8);
 	sprintf(cmd_BONUSVAL     ,"CD%02X%02X21xxxxCDxxxx"  ,CallSwpsb  & 0xff, CallSwpsb  >> 8);
@@ -647,7 +652,6 @@ void Info(){
 
 	int Address;
 	int msgdat;
-	int nummsg;
 	int palett;
 	int jtab;
 
@@ -702,9 +706,10 @@ void Info(){
 
 	Event[21] = msgdat - 1;
 
-	for (i = 0; i < nummsg; i++){
-			printf("%s\n",MSG[i]);
-	}
+//	for (i = 0; i < nummsg; i++){
+//			printf("%s\n",MSG[i]);
+//	}
+
 // Print table addresses
 
 	sprintf (Dummy,"EngineAddress: %04X\n",EngineStart);
