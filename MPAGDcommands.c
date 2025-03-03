@@ -5315,26 +5315,26 @@ int tst_PUT(){
 			cBuff[event_ptr + 3],
 			cBuff[event_ptr + 4]);
 		if (strcmp("AF6F22xxxx", cPattern1) == 0){
-			sprintf (Dummy,"XXXX 0,"); 
+			sprintf (Dummy,"0,"); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 5;
 		}
 		if (strcmp("3Exx6F22xxxx", cPattern2) == 0){
 			DataByte = ReadParam(1);
-			sprintf (Dummy,"XXXX %d,",DataByte); 
+			sprintf (Dummy,"%d,",DataByte); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 6;
 		}
 		if (strcmp("3Axxxx6F22xxxx", cPattern3) == 0){
 			VARname = ReadVarName(1);
-			sprintf (Dummy,"XXXX %s,",VARname); 
+			sprintf (Dummy,"%s,",VARname); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 7;
 		}
 		if (strcmp("DD7Exx6F22xxxx", cPattern4) == 0){
 			sprVARval = ReadParam(2);
 			sprVARname = ReadSprVarName(sprVARval);
-			sprintf (Dummy,"XXXX %s,",sprVARname); 
+			sprintf (Dummy,"%s,",sprVARname); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 7;
 		}
@@ -5362,14 +5362,14 @@ int tst_PUT(){
 		}
 		if (strcmp("3ExxCDxxxx", cPattern2) == 0){
 			DataByte = ReadParam(1);
-			sprintf (Dummy,"XXXX %d\n",DataByte); 
+			sprintf (Dummy,"%d\n",DataByte); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 5;
 			return 1;
 		}
 		if (strcmp("3AxxxxCDxxxx", cPattern3) == 0){
 			VARname = ReadVarName(1);
-			sprintf (Dummy,"XXXX %s\n",VARname); 
+			sprintf (Dummy,"%s\n",VARname); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 6;
 			return 1;
@@ -5377,7 +5377,7 @@ int tst_PUT(){
 		if (strcmp("DD7ExxCDxxxx", cPattern4) == 0){
 			sprVARval = ReadParam(2);
 			sprVARname = ReadSprVarName(sprVARval);
-			sprintf (Dummy,"XXXX %s\n",sprVARname); 
+			sprintf (Dummy,"%s\n",sprVARname); 
 			PrtReport(Dummy,1);
 			event_ptr = event_ptr + 6;
 			return 1;
