@@ -158,8 +158,12 @@ int main( int argc, const char* argv[] )
 		
 //		printf("\n;----------------------------------------------------------");
         if (ident != 0){
-			printf("\n***** IDENT ERROR, ident=%d\n",ident);
-	DisplayIFstack();
+			d=ident;
+			sprintf(Dummy,"     ENDIF\n");
+			for (i=0; i<d; i++){
+					PrtReport(Dummy,1);
+//					ident--;
+			}
 		}
 		printf("\n%s\n",EventName[Events]);
 		ident = 0;

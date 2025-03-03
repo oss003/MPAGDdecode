@@ -5315,27 +5315,27 @@ int tst_PUT(){
 			cBuff[event_ptr + 3],
 			cBuff[event_ptr + 4]);
 		if (strcmp("AF6F22xxxx", cPattern1) == 0){
-			sprintf (Dummy,"0,"); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     0,"); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 5;
 		}
 		if (strcmp("3Exx6F22xxxx", cPattern2) == 0){
 			DataByte = ReadParam(1);
-			sprintf (Dummy,"%d,",DataByte); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     %d,",DataByte); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 6;
 		}
 		if (strcmp("3Axxxx6F22xxxx", cPattern3) == 0){
 			VARname = ReadVarName(1);
-			sprintf (Dummy,"%s,",VARname); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     %s,",VARname); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 7;
 		}
 		if (strcmp("DD7Exx6F22xxxx", cPattern4) == 0){
 			sprVARval = ReadParam(2);
 			sprVARname = ReadSprVarName(sprVARval);
-			sprintf (Dummy,"%s,",sprVARname); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     %s,",sprVARname); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 7;
 		}
 
@@ -5355,30 +5355,30 @@ int tst_PUT(){
 			cBuff[event_ptr + 1],
 			cBuff[event_ptr + 3]);
 		if (strcmp("AFCDxxxx", cPattern1) == 0){
-			sprintf (Dummy,"XXXX 0\n"); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     0\n"); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 4;
 			return 1;
 		}
 		if (strcmp("3ExxCDxxxx", cPattern2) == 0){
 			DataByte = ReadParam(1);
-			sprintf (Dummy,"%d\n",DataByte); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     %d\n",DataByte); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 5;
 			return 1;
 		}
 		if (strcmp("3AxxxxCDxxxx", cPattern3) == 0){
 			VARname = ReadVarName(1);
-			sprintf (Dummy,"%s\n",VARname); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     %s\n",VARname); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 6;
 			return 1;
 		}
 		if (strcmp("DD7ExxCDxxxx", cPattern4) == 0){
 			sprVARval = ReadParam(2);
 			sprVARname = ReadSprVarName(sprVARval);
-			sprintf (Dummy,"%s\n",sprVARname); 
-			PrtReport(Dummy,1);
+			sprintf (Dummy,"     %s\n",sprVARname); 
+			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 6;
 			return 1;
 		}

@@ -857,6 +857,15 @@ void PrtReport(char *String, int Flag){
 						ident++;
 					}
 					break;
+				case 2:
+					if (debug == 1){
+						printf ("%s", String + 5);
+						break;
+					} else {
+						printf ("%s", String + 5);
+						break;
+					}
+					break;
 				default:
 					break;
 		}
