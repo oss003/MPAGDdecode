@@ -47,6 +47,7 @@ int CallSpptr;
 int CallTfall;
 int CallTjump;
 int CallVapour;
+int CallDig;
 
 int ptr_offset;
 int sndtype;
@@ -132,6 +133,8 @@ char cmd_CHRVAR[]			= "3AxxxxCDxxxx";
 char cmd_CHRVAL[]			= "3ExxCDxxxx";
 char cmd_CLS[]				= "CDxxxx";
 char cmd_CLW[]				= "CDxxxxCDxxxx";
+char cmd_DIGZERO[]			= "AFCDxxxx";
+char cmd_DIGVAL[]			= "3ExxCDxxxx";
 char cmd_IFCOLLVAL[]		= "06xxCDxxxxD2xxxx";
 char cmd_IFCOLLVAR[]		= "3Axxxx47CDxxxxD2xxxx";
 char cmd_IFCOLLSPRVAR[]		= "DD7Exx47CDxxxxD2xxxx";

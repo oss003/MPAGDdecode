@@ -1986,6 +1986,70 @@ int tst_DETECTOBJ(){
 }
 
 //--------------------------------------------
+// 25. DIG ZERO
+//--------------------------------------------
+
+int tst_DIGZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_DIGZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X DIG RIGHT\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 4;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 25. DIG VAL
+//--------------------------------------------
+
+int tst_DIGVAL(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_DIGVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X DIG %s\n", event_ptr + SnapshotOffset, KeyString[DataByte+1]); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 26. DISPLAY VAR
 //--------------------------------------------
 

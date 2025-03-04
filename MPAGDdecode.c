@@ -287,6 +287,7 @@ int main( int argc, const char* argv[] )
 					if (tst_RANDOMIZEVAL())		  break;
 					if (tst_IFWHILE(2))           break;
 					if (tst_TICKERVALVAR())		  break;
+					if (tst_DIGVAL())			  break;
 					if (tst_CRASHZERO())          break;
 					if (tst_CRASHVAL())           break;
 					if (tst_PRINTMODEVAL())       break;
@@ -323,6 +324,7 @@ int main( int argc, const char* argv[] )
 				case 0xaf:
 					if (tst_IFWHILE(3))           break;
 					if (tst_STARZERO())			  break;
+					if (tst_DIGZERO())			  break;
 					if (tst_COLOURZERO())         break;
 					if (tst_REPEATZERO())         break;
 					if (tst_PAPERZERO())          break;
