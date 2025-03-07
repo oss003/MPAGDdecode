@@ -1379,7 +1379,7 @@ int tst_CHRVAL(){
 		cBuff[event_ptr + 0],
 		cBuff[event_ptr + 2],
 		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 4]);
+		cBuff[event_ptr + 5]);
 
 // Read parameters
 
@@ -4050,6 +4050,141 @@ int tst_INKVAL(){
 }
 
 //--------------------------------------------
+// 48. INV ZERO
+//--------------------------------------------
+
+int tst_INVZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_INVZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X INV 0\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 4;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 48. INV VAL
+//--------------------------------------------
+
+int tst_INVVAL(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_INVVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X INV %d\n", event_ptr + SnapshotOffset, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 48. INV VAR
+//--------------------------------------------
+
+int tst_INVVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_INVVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X INV %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 48. INV SPRVAR
+//--------------------------------------------
+
+int tst_INVSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_INVSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X INV %s\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 49. JUMP VAL
 //--------------------------------------------
 
@@ -4557,6 +4692,141 @@ int tst_LETSPRVAREQVAL(){
 		sprintf (Dummy,"%04X LET %s = %d\n", event_ptr + SnapshotOffset, sprVARname, DataByte); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 53. MENU ZERO
+//--------------------------------------------
+
+int tst_MENUZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_MENUZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X MENU 0\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 4;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 53. MENU VAL
+//--------------------------------------------
+
+int tst_MENUVAL(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4]);
+
+// Read parameters
+
+	DataByte = ReadParam(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_MENUVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X MENU %d\n", event_ptr + SnapshotOffset, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 53. MENU VAR
+//--------------------------------------------
+
+int tst_MENUVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_MENUVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X MENU %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 53. MENU SPRVAR
+//--------------------------------------------
+
+int tst_MENUSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_MENUSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X MENU %s\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
 		return 1;
 	} else {
 		return 0;

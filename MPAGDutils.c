@@ -473,6 +473,10 @@ void Init(){
 	CallTjump   = FindAddress("DD7E0DA7C0DD360D");
 	CallPut		= FindAddress("BEC87723") - 11;
 	CallVapour	= FindAddress("DDE5DD6E08DD660911");
+	CallDig		= FindAddress("DD66093E10DD86086F18") - 10;
+	CallMenu	= FindAddress("E51601AF32") - 21;
+	CallInv		= CallMenu - 17;
+	
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
 	evntloc		= FindAddress("5E2356EBE9") - SnapshotOffset + 7;
@@ -527,6 +531,8 @@ void Init(){
 	sprintf(cmd_CRASHVAR     ,"3AxxxxF68032%02X%02X"    ,sndtype  & 0xff, sndtype  >> 8);
 	sprintf(cmd_CRASHZERO    ,"3E8032%02X%02X"          ,sndtype  & 0xff, sndtype  >> 8);
 	sprintf(cmd_DETECTOBJ    ,"CDxxxx32%02X%02X"        ,(VarAddress + 35)  & 0xff, (VarAddress + 35)  >> 8);
+	sprintf(cmd_DIGZERO      ,"AFCD%02X%02X"			,CallDig & 0xff, CallDig >> 8);
+	sprintf(cmd_DIGVAL       ,"3ExxCD%02X%02X"			,CallDig & 0xff, CallDig >> 8);
 	sprintf(cmd_DISPLAYDBLVAR,"3Axxxx01xxxxCD%02X%02XCDxxxx"     ,CallNum2dd  & 0xff, CallNum2dd  >> 8);
 	sprintf(cmd_DISPLAYVAR   ,"3AxxxxCD%02X%02X"        ,CallDisply  & 0xff, CallDisply  >> 8);
 	sprintf(cmd_ENDGAME      ,"21%02X%02X74"            ,gamwon  & 0xff, gamwon  >> 8);
@@ -541,6 +547,12 @@ void Init(){
 	sprintf(cmd_IFGOTVAL     ,"3ExxCD%02X%02XDAxxxx"    ,CallGotob  & 0xff, CallGotob  >> 8);
 	sprintf(cmd_IFGOTVAR     ,"3AxxxxCD%02X%02XDAxxxx"  ,CallGotob  & 0xff, CallGotob  >> 8);
 	sprintf(cmd_IFGOTZERO    ,"AFCD%02X%02XDAxxxx"      ,CallGotob  & 0xff, CallGotob  >> 8);
+
+	sprintf(cmd_INVZERO	 	 ,"AFCD%02X%02X"            ,CallInv  & 0xff, CallInv  >> 8);
+	sprintf(cmd_INVVAL		 ,"3ExxCD%02X%02X"          ,CallInv  & 0xff, CallInv  >> 8);
+	sprintf(cmd_INVVAR		 ,"3AxxxxCD%02X%02X"        ,CallInv  & 0xff, CallInv  >> 8);
+	sprintf(cmd_INVSPRVAR	 ,"DD7ExxCD%02X%02X"        ,CallInv  & 0xff, CallInv  >> 8);
+
 	sprintf(cmd_JUMPVAL      ,"3ExxCD%02X%02X"          ,CallJump  & 0xff, CallJump  >> 8);
 	sprintf(cmd_JUMPVAR      ,"3AxxxxCD%02X%02X"        ,CallJump  & 0xff, CallJump  >> 8);
 	sprintf(cmd_LADDERABOVE  ,"CD%02X%02XC2xxxx"        ,CallLadderU  & 0xff, CallLadderU  >> 8);
@@ -549,6 +561,12 @@ void Init(){
 	sprintf(cmd_LASERSPRVAR	 ,"DD7ExxCD%02X%02X"	    ,CallShoot  & 0xff, CallShoot  >> 8);
 	sprintf(cmd_LASERVAR	 ,"3AxxxxCD%02X%02X"	    ,CallShoot  & 0xff, CallShoot  >> 8);
 	sprintf(cmd_LASERZERO	 ,"AFCD%02X%02X"		    ,CallShoot  & 0xff, CallShoot  >> 8);
+
+	sprintf(cmd_MENUZERO	 ,"AFCD%02X%02X"            ,CallMenu  & 0xff, CallMenu  >> 8);
+	sprintf(cmd_MENUVAL		 ,"3ExxCD%02X%02X"          ,CallMenu  & 0xff, CallMenu  >> 8);
+	sprintf(cmd_MENUVAR		 ,"3AxxxxCD%02X%02X"        ,CallMenu  & 0xff, CallMenu  >> 8);
+	sprintf(cmd_MENUSPRVAR	 ,"DD7ExxCD%02X%02X"        ,CallMenu  & 0xff, CallMenu  >> 8);
+
 	sprintf(cmd_MESSAGEVAL   ,"3ExxCD%02X%02X"          ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_MESSAGEVAR   ,"3AxxxxCD%02X%02X"        ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_MESSAGEZERO  ,"AFCD%02X%02X"            ,CallDmsg  & 0xff, CallDmsg  >> 8);

@@ -178,14 +178,14 @@ int main( int argc, const char* argv[] )
 				case 0x01:
 					if (tst_SPAWNVALVAL())        break;
 					if (tst_TICKERVALVAL())		  break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x06:
 					if (tst_IFCOLLVAL())          break;
 					if (tst_IFCUSTOM())           break;
 					if (tst_IFDEADLY())           break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x0e:
@@ -193,7 +193,7 @@ int main( int argc, const char* argv[] )
 					if (tst_SUBVALFROMSPRVAR())   break;
 					if (tst_ADDVALTOSPRVAR())     break;
 					if (tst_SPAWNVALVAR())        break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x21:
@@ -213,19 +213,19 @@ int main( int argc, const char* argv[] )
 					if (tst_ENDGAME())            break;
 					if (tst_KILL())               break;
 					if (tst_ZEROBONUS())          break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x26:
 					if (tst_GETBLKVALVAR())       break;
 					if (tst_GETBLKZEROSPRVAR())	  break; 
 					if (tst_GETBLKVALSPRVAR())	  break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x2e:
 					if (tst_ATVALVAR())           break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x3a:
@@ -235,6 +235,8 @@ int main( int argc, const char* argv[] )
 					if (tst_TICKERVARVAL())		  break;
 					if (tst_TICKERVARVAR())		  break;
 					if (tst_STARVAR())			  break;
+					if (tst_MENUVAR())			  break;
+					if (tst_INVVAR())			  break;
 					if (tst_CRASHVAR())           break;
 					if (tst_MULVAR())             break;
 					if (tst_DIVVAR())             break;
@@ -280,7 +282,7 @@ int main( int argc, const char* argv[] )
 					if (tst_LASERVAR())           break;
 					if (tst_REMOBJVAR())          break;
 					if (tst_PUT())				  break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x3e:
@@ -288,6 +290,8 @@ int main( int argc, const char* argv[] )
 					if (tst_IFWHILE(2))           break;
 					if (tst_TICKERVALVAR())		  break;
 					if (tst_DIGVAL())			  break;
+					if (tst_MENUVAL())			  break;
+					if (tst_INVVAL())			  break;
 					if (tst_CRASHZERO())          break;
 					if (tst_CRASHVAL())           break;
 					if (tst_PRINTMODEVAL())       break;
@@ -313,17 +317,18 @@ int main( int argc, const char* argv[] )
 					if (tst_REPEATVAL())          break;
 					if (tst_LETVAREQVAL())        break;
 					if (tst_JUMPVAL())            break;
-//					if (tst_MESSAGEVAL())         break; // Same as PRINT!!!!
 					if (tst_PRINTVAL())           break;
 					if (tst_LASERVAL())           break;
 					if (tst_REMOBJVAL())          break;
 					if (tst_PUT())				  break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0xaf:
 					if (tst_IFWHILE(3))           break;
 					if (tst_STARZERO())			  break;
+					if (tst_MENUZERO())			  break;
+					if (tst_INVZERO())			  break;
 					if (tst_DIGZERO())			  break;
 					if (tst_COLOURZERO())         break;
 					if (tst_REPEATZERO())         break;
@@ -335,18 +340,17 @@ int main( int argc, const char* argv[] )
 					if (tst_ANIMBACK())			  break;
 					if (tst_LETSPRVAREQZERO())    break;
 					if (tst_BORDERZERO())         break;
-//					if (tst_MESSAGEZERO())        break; // Same as PRINT!!!!
 					if (tst_PRINTZERO())          break;
 					if (tst_INKZERO())            break;
 					if (tst_LASERZERO())          break;
 					if (tst_REMOBJZERO())         break;
 					if (tst_PUT())				  break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0xc9:
 					if (tst_EXIT(Events))         break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0xcd:
@@ -378,13 +382,15 @@ int main( int argc, const char* argv[] )
 					if (tst_STOPFALL())			  break;
 					if (tst_TABLEFALL())		  break;
 					if (tst_TABLEJUMP())          break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0xdd:
 					if (tst_IFWHILE(4))           break;
 					if (tst_BEEPSPRVAR())		  break;
 					if (tst_STARSPRVAR())		  break;
+					if (tst_MENUSPRVAR())		  break;
+					if (tst_INVSPRVAR())		  break;
 					if (tst_UNDOSPRITEMOVE())	  break;
 					if (tst_CRASHSPRVAR())        break;
 					if (tst_MULSPRVAR())          break;
@@ -414,11 +420,11 @@ int main( int argc, const char* argv[] )
 					if (tst_GETBLKSPRVARVAR())	  break;
 					if (tst_GETBLKSPRVARSPRVAR()) break;
 					if (tst_PUT())				  break;
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				default:
-//					printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 			}
 		}
