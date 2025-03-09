@@ -233,6 +233,46 @@ int tst_ADDSPRVARTOVAR(){
 }
 
 //--------------------------------------------
+// 2. ADD SPRVAR TO SPRVAR
+//--------------------------------------------
+
+int tst_ADDSPRVARTOSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02Xxx%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+	sprVARval = ReadParam(6);
+	const char *sprVARname2 = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+	if (strcmp(cmd_ADDSPRVARTOSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X ADD %s TO %s\n", event_ptr + SnapshotOffset, sprVARname, sprVARname2); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 2. ADD VAL TO VAR
 //--------------------------------------------
 
@@ -370,6 +410,42 @@ int tst_SUB1FROMSPRVAR(){
 		sprintf (Dummy,"%04X SUBTRACT 1 FROM %s\n", event_ptr + SnapshotOffset, sprVARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 7;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 2. SUBTRACT VAR FROM VAR
+//--------------------------------------------
+
+int tst_SUBVARFROMVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02Xxxxx%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+	const char *VARname1 = ReadVarName(5);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_SUBVARFROMVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X SUBTRACT %s FROM %s\n", event_ptr + SnapshotOffset, VARname, VARname1); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
 		return 1;
 	} else {
 		return 0;
@@ -1379,7 +1455,7 @@ int tst_CHRVAL(){
 		cBuff[event_ptr + 0],
 		cBuff[event_ptr + 2],
 		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 5]);
+		cBuff[event_ptr + 4]);
 
 // Read parameters
 
@@ -1391,7 +1467,7 @@ int tst_CHRVAL(){
 	if (strcmp(cmd_CHRVAL, cPattern) == 0){
 		sprintf (Dummy,"%04X CHR %d\n", event_ptr + SnapshotOffset, DataByte); 
 		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 4;
+		event_ptr = event_ptr + 5;
 		return 1;
 	} else {
 		return 0;
@@ -2914,10 +2990,13 @@ int tst_GETBLKVARVAR(){
 
 // Read pattern from buffer
 
-	sprintf(cPattern, "%02Xxxxx%02X%02Xxxxx",
+	sprintf(cPattern, "%02Xxxxx%02X%02Xxxxx%02X%02Xxxxx%02Xxxxx",
 		cBuff[event_ptr + 0],
 		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 4]);
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8],
+		cBuff[event_ptr + 11]);
 
 // Read parameters
 
@@ -4244,6 +4323,42 @@ int tst_JUMPVAR(){
 
 	if (strcmp(cmd_JUMPVAR, cPattern) == 0){
 		sprintf (Dummy,"%04X JUMP %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 49. JUMP SPRVAR
+//--------------------------------------------
+
+int tst_JUMPSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+	if (strcmp(cmd_JUMPSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X JUMP %s\n", event_ptr + SnapshotOffset, sprVARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 6;
 		return 1;
@@ -5584,7 +5699,7 @@ int tst_PUT(){
 	}
 
 	if (flag == 0) return 0;
-	
+
 // Test for parameter 1 zero, val, var, sprvar
 
 	sprintf(cPattern1, "%02X%02X",
@@ -5649,26 +5764,26 @@ int tst_PUT(){
 			cBuff[event_ptr + 3],
 			cBuff[event_ptr + 4]);
 		if (strcmp("AF6F22xxxx", cPattern1) == 0){
-			sprintf (Dummy,"     0,"); 
+			sprintf (Dummy,"0,"); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 5;
 		}
 		if (strcmp("3Exx6F22xxxx", cPattern2) == 0){
 			DataByte = ReadParam(1);
-			sprintf (Dummy,"     %d,",DataByte); 
+			sprintf (Dummy,"%d,",DataByte); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 6;
 		}
 		if (strcmp("3Axxxx6F22xxxx", cPattern3) == 0){
 			VARname = ReadVarName(1);
-			sprintf (Dummy,"     %s,",VARname); 
+			sprintf (Dummy,"%s,",VARname); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 7;
 		}
 		if (strcmp("DD7Exx6F22xxxx", cPattern4) == 0){
 			sprVARval = ReadParam(2);
 			sprVARname = ReadSprVarName(sprVARval);
-			sprintf (Dummy,"     %s,",sprVARname); 
+			sprintf (Dummy,"%s,",sprVARname); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 7;
 		}
@@ -5689,21 +5804,21 @@ int tst_PUT(){
 			cBuff[event_ptr + 1],
 			cBuff[event_ptr + 3]);
 		if (strcmp("AFCDxxxx", cPattern1) == 0){
-			sprintf (Dummy,"     0\n"); 
+			sprintf (Dummy,"0\n"); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 4;
 			return 1;
 		}
 		if (strcmp("3ExxCDxxxx", cPattern2) == 0){
 			DataByte = ReadParam(1);
-			sprintf (Dummy,"     %d\n",DataByte); 
+			sprintf (Dummy,"%d\n",DataByte); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 5;
 			return 1;
 		}
 		if (strcmp("3AxxxxCDxxxx", cPattern3) == 0){
 			VARname = ReadVarName(1);
-			sprintf (Dummy,"     %s\n",VARname); 
+			sprintf (Dummy,"%s\n",VARname); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 6;
 			return 1;
@@ -5711,7 +5826,7 @@ int tst_PUT(){
 		if (strcmp("DD7ExxCDxxxx", cPattern4) == 0){
 			sprVARval = ReadParam(2);
 			sprVARname = ReadSprVarName(sprVARval);
-			sprintf (Dummy,"     %s\n",sprVARname); 
+			sprintf (Dummy,"%s\n",sprVARname); 
 			PrtReport(Dummy,2);
 			event_ptr = event_ptr + 6;
 			return 1;

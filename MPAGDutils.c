@@ -12,6 +12,7 @@ extern unsigned int Event[22];
 extern int VarAddress;
 extern int ptr_offset;
 extern int iflag;
+extern FILE *fpDest;
 
 extern char MSG[255][255];
 
@@ -547,14 +548,13 @@ void Init(){
 	sprintf(cmd_IFGOTVAL     ,"3ExxCD%02X%02XDAxxxx"    ,CallGotob  & 0xff, CallGotob  >> 8);
 	sprintf(cmd_IFGOTVAR     ,"3AxxxxCD%02X%02XDAxxxx"  ,CallGotob  & 0xff, CallGotob  >> 8);
 	sprintf(cmd_IFGOTZERO    ,"AFCD%02X%02XDAxxxx"      ,CallGotob  & 0xff, CallGotob  >> 8);
-
 	sprintf(cmd_INVZERO	 	 ,"AFCD%02X%02X"            ,CallInv  & 0xff, CallInv  >> 8);
 	sprintf(cmd_INVVAL		 ,"3ExxCD%02X%02X"          ,CallInv  & 0xff, CallInv  >> 8);
 	sprintf(cmd_INVVAR		 ,"3AxxxxCD%02X%02X"        ,CallInv  & 0xff, CallInv  >> 8);
 	sprintf(cmd_INVSPRVAR	 ,"DD7ExxCD%02X%02X"        ,CallInv  & 0xff, CallInv  >> 8);
-
 	sprintf(cmd_JUMPVAL      ,"3ExxCD%02X%02X"          ,CallJump  & 0xff, CallJump  >> 8);
 	sprintf(cmd_JUMPVAR      ,"3AxxxxCD%02X%02X"        ,CallJump  & 0xff, CallJump  >> 8);
+	sprintf(cmd_JUMPSPRVAR   ,"DD7ExxCD%02X%02X"        ,CallJump  & 0xff, CallJump  >> 8);
 	sprintf(cmd_LADDERABOVE  ,"CD%02X%02XC2xxxx"        ,CallLadderU  & 0xff, CallLadderU  >> 8);
 	sprintf(cmd_LADDERBELOW  ,"CD%02X%02XC2xxxx"        ,CallLadderD  & 0xff, CallLadderD  >> 8);
 	sprintf(cmd_LASERVAL	 ,"3ExxCD%02X%02X"		    ,CallShoot  & 0xff, CallShoot  >> 8);
@@ -667,6 +667,8 @@ int PrintIdent(int Nr){
 		
 		for (i = 0; i <  Nr; i++){
 				printf(" ");
+				sprintf(Dummy," ");
+				PrtReport(Dummy,0);
 		}
 		
 		return 0;
@@ -846,6 +848,7 @@ void PrtReport(char *String, int Flag){
 		switch (Flag){
 				case 0:
 					printf ("%s", String);
+					fprintf(fpDest, "%s", String);
 					break;
 				case 1:
 					if (strncmp(String + 5, "ENDIF", 5) == 0) {
@@ -862,6 +865,7 @@ void PrtReport(char *String, int Flag){
 					}
 					PrintIdent(ident);
 					printf ("%s", String + 5);
+					fprintf(fpDest, "%s", String + 5);
 					if (strncmp(String + 5, "IF", 2) == 0) {
 						ident++;
 					}
@@ -877,10 +881,10 @@ void PrtReport(char *String, int Flag){
 					break;
 				case 2:
 					if (debug == 1){
-						printf ("%s", String + 5);
+						printf ("%s", String);
 						break;
 					} else {
-						printf ("%s", String + 5);
+						printf ("%s", String);
 						break;
 					}
 					break;

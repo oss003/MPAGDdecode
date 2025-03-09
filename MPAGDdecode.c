@@ -20,6 +20,7 @@
 
 // global variables   
 FILE *fpSource;
+FILE *fpDest;
 
 unsigned char *cSrc;
 unsigned char *cBuff;
@@ -146,6 +147,20 @@ int main( int argc, const char* argv[] )
 	sprintf(Dummy,"EventData:%04X-%04X\n",data_ptr, data_ptr + SnapshotOffset);
 	PrtReport(Dummy,3);
 	
+// Open output file
+
+    fpDest = fopen("output.agd", "w");
+    if (fpDest == NULL) {
+        perror("Error opening file");
+        return EXIT_FAILURE;
+    }
+	sprintf(Dummy,";----------------------------------------------------------------\n");
+	PrtReport(Dummy,0);
+	sprintf(Dummy,"; MPAGD v0.7.10 decoder v1.0                              KC 2025\n");
+	PrtReport(Dummy,0);
+	sprintf(Dummy,";----------------------------------------------------------------\n");
+	PrtReport(Dummy,0);
+	
 //
 // Start decoding
 //
@@ -165,7 +180,14 @@ int main( int argc, const char* argv[] )
 //					ident--;
 			}
 		}
-		printf("\n%s\n",EventName[Events]);
+//		printf("\n%s\n",EventName[Events]);
+		sprintf(Dummy,"\n;----------------------------------------------------------------\n");
+		PrtReport(Dummy,0);
+		sprintf(Dummy,"%s\n",EventName[Events]);
+		PrtReport(Dummy,0);
+		sprintf(Dummy,";----------------------------------------------------------------\n");
+		PrtReport(Dummy,0);
+
 		ident = 0;
 		while (event_ptr != Event[Events+1] - SnapshotOffset){
 
@@ -190,6 +212,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x0e:
 					if (tst_ADDVALTOVAR())        break;
+					if (tst_SUBVALFROMVAR())	  break;
 					if (tst_SUBVALFROMSPRVAR())   break;
 					if (tst_ADDVALTOSPRVAR())     break;
 					if (tst_SPAWNVALVAR())        break;
@@ -269,6 +292,7 @@ int main( int argc, const char* argv[] )
 					if (tst_GETBLKVARSPRVAR())	  break;
 					if (tst_LETSPRVAREQVAR())     break;
 					if (tst_SUB1FROMVAR())        break;
+					if (tst_SUBVARFROMVAR())	  break;
 					if (tst_SUBVARFROMSPRVAR())   break;
 					if (tst_ADDVARTOVAR())        break;
 					if (tst_ADDVARTOSPRVAR())     break;
@@ -388,6 +412,7 @@ int main( int argc, const char* argv[] )
 				case 0xdd:
 					if (tst_IFWHILE(4))           break;
 					if (tst_BEEPSPRVAR())		  break;
+					if (tst_JUMPSPRVAR())		  break;
 					if (tst_STARSPRVAR())		  break;
 					if (tst_MENUSPRVAR())		  break;
 					if (tst_INVSPRVAR())		  break;
@@ -406,6 +431,7 @@ int main( int argc, const char* argv[] )
 					if (tst_LETSPRVAREQSPRVAR())  break;
 					if (tst_ADD1TOSPRVAR())       break;
 					if (tst_ADDSPRVARTOVAR())     break;
+					if (tst_ADDSPRVARTOSPRVAR())  break;
 					if (tst_SUBSPRVARFROMVAR())   break;
 					if (tst_SUB1FROMSPRVAR())     break;
 					if (tst_REMOVE())             break;
@@ -429,6 +455,11 @@ int main( int argc, const char* argv[] )
 			}
 		}
 	}
+
+// Close output file
+
+	fclose(fpDest);
+	
 	return;
 }
 
