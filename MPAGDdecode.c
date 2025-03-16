@@ -39,6 +39,7 @@ unsigned int DATAstack[1000];
 unsigned int Event[22];
 int keys;
 int iflag;
+int debug = 0;
 
 char MSG[255][255];
 int NMEptr[100];
@@ -55,23 +56,15 @@ int main( int argc, const char* argv[] )
 	unsigned int Address;
 	short int d, i;
 	char szSourceFilename[ 128 ];
+	char szDestFilename[ 128 ] = "";
 	char cChar[64];
-
+	char *ext;
+	
 //===============================================================
 // GENERAL
 //===============================================================
 
 	endif_ptr = 0;
-
-//
-// ----- Print program info ------ 
-//
-	sprintf (Dummy,"==============================================================\n");
-	PrtReport(Dummy,3);
-	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.0 - %s.sna\n",argv[1]);
-	PrtReport(Dummy,3);
-	sprintf (Dummy,"==============================================================\n\n");
-	PrtReport(Dummy,3);
 
 //
 // ----- Handle parameters ----- 
@@ -82,7 +75,7 @@ int main( int argc, const char* argv[] )
 		for (i = 2; i < argc; ++i)
 		{
 		  d = tolower(argv[i][0]);
-//		  if ( d == 'a' || d == 'A') flagA=1;	// All
+		  if ( d == 'd' || d == 'D') debug = 1;
 		}
 	} else {
 		puts ("Usage: MPAGDdecode <MPAGD snapshot>");
@@ -90,11 +83,30 @@ int main( int argc, const char* argv[] )
 	}
 
 //
+// ----- Print program info ------ 
+//
+	sprintf (Dummy,"==============================================================\n");
+	PrtReport(Dummy,2);
+	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.0                             KC 2025\n");
+	PrtReport(Dummy,2);
+	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
+	PrtReport(Dummy,2);
+	sprintf (Dummy,"==============================================================\n\n");
+	PrtReport(Dummy,2);
+
+//
 // ----- open source project file. ----- 
 //
 
+	
 	sprintf( szSourceFilename, "%s.sna", argv[ 1 ] );
 	fpSource = fopen( szSourceFilename, "rb" );
+
+	strcpy(szDestFilename,szSourceFilename);
+	ext = strstr(szDestFilename,".sna");
+	if (ext != NULL) {
+		strcpy(ext,"-conv.agd");
+	}
 	if ( !fpSource )
 	{
        	fprintf( stderr, "Unable to read snapshot file: %s\n", szSourceFilename );
@@ -149,14 +161,16 @@ int main( int argc, const char* argv[] )
 	
 // Open output file
 
-    fpDest = fopen("output.agd", "w");
+    fpDest = fopen(szDestFilename, "w");
     if (fpDest == NULL) {
         perror("Error opening file");
         return EXIT_FAILURE;
     }
 	sprintf(Dummy,";----------------------------------------------------------------\n");
 	PrtReport(Dummy,0);
-	sprintf(Dummy,"; MPAGD v0.7.10 decoder v1.0                              KC 2025\n");
+	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.0 KC 2025\n");
+	PrtReport(Dummy,0);
+	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,0);
 	sprintf(Dummy,";----------------------------------------------------------------\n");
 	PrtReport(Dummy,0);
@@ -431,7 +445,7 @@ int main( int argc, const char* argv[] )
 					if (tst_LETSPRVAREQSPRVAR())  break;
 					if (tst_ADD1TOSPRVAR())       break;
 					if (tst_ADDSPRVARTOVAR())     break;
-					if (tst_ADDSPRVARTOSPRVAR())  break;
+					if (tst_ATSPRVARSPRVAR())	  break;
 					if (tst_SUBSPRVARFROMVAR())   break;
 					if (tst_SUB1FROMSPRVAR())     break;
 					if (tst_REMOVE())             break;

@@ -1,5 +1,4 @@
 #define SnapshotOffset	(0x4000 - 0x1b)
-#define debug 1
 
 int CodeStart;
 int EngineStart;
@@ -98,7 +97,7 @@ char cmd_ADDVARTOSPRVAR[]	= "3Axxxx4FDD7Exx81DD77xx";
 char cmd_ADDSPRVARTOVAR[]	= "DD7Exx4F3Axxxx8132xxxx";
 char cmd_ADDVALTOVAR[]		= "0Exx3Axxxx8132xxxx";
 char cmd_ADDVALTOSPRVAR[]	= "0ExxDD7Exx81DD77xx";
-char cmd_ADDSPRVARTOSPRVAR[]= "DD7Exx6FDD7Exx6722xxxx";
+char cmd_ATSPRVARSPRVAR[]	= "DD7Exx6FDD7Exx6722xxxx";
 char cmd_SUB1FROMVAR[]		= "3Axxxx3D32xxxx";
 char cmd_SUB1FROMSPRVAR[]	= "DD7Exx3DDD77xx";
 char cmd_SUBVARFROMVAR[]	= "3Axxxx4F3Axxxx9132xxxx";

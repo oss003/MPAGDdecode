@@ -233,46 +233,6 @@ int tst_ADDSPRVARTOVAR(){
 }
 
 //--------------------------------------------
-// 2. ADD SPRVAR TO SPRVAR
-//--------------------------------------------
-
-int tst_ADDSPRVARTOSPRVAR(){
-
-// Define variables
-
-	char cPattern[64];
-	int sprVARval;
-
-// Read pattern from buffer
-
-	sprintf(cPattern, "%02X%02Xxx%02X%02X%02Xxx%02X%02Xxxxx",
-		cBuff[event_ptr + 0],
-		cBuff[event_ptr + 1],
-		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 4],
-		cBuff[event_ptr + 5],
-		cBuff[event_ptr + 7],
-		cBuff[event_ptr + 8]);
-
-// Read parameters
-
-	sprVARval = ReadParam(2);
-	const char *sprVARname = ReadSprVarName(sprVARval);
-	sprVARval = ReadParam(6);
-	const char *sprVARname2 = ReadSprVarName(sprVARval);
-
-// Compare pattern with template
-	if (strcmp(cmd_ADDSPRVARTOSPRVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X ADD %s TO %s\n", event_ptr + SnapshotOffset, sprVARname, sprVARname2); 
-		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 11;
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-//--------------------------------------------
 // 2. ADD VAL TO VAR
 //--------------------------------------------
 
@@ -989,6 +949,46 @@ int tst_ATVARVAR(){
 
 	if (strcmp(cmd_ATVARVAR, cPattern) == 0){
 		sprintf (Dummy,"%04X AT %s %s\n", event_ptr + SnapshotOffset, VARname1, VARname2); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 2. AT SPRVAR,SPRVAR
+//--------------------------------------------
+
+int tst_ATSPRVARSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02Xxx%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+	sprVARval = ReadParam(6);
+	const char *sprVARname2 = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+	if (strcmp(cmd_ATSPRVARSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X AT %s %s\n", event_ptr + SnapshotOffset, sprVARname, sprVARname2); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 11;
 		return 1;

@@ -29,81 +29,87 @@ int nr;
 int blk;
 int width;
 int height;
+char *k1, *k2,*k3,*k4;
 
 // DEFINEWINDOW
 
-	printf("\nDEFINEWINDOW\t%d %d %d %d\n", 
+	sprintf(Dummy,"\nDEFINEWINDOW\t%d %d %d %d\n", 
 		cBuff[ScrFormat - SnapshotOffset],
 		cBuff[ScrFormat - SnapshotOffset + 1],
 		cBuff[ScrFormat - SnapshotOffset + 2],
 		cBuff[ScrFormat - SnapshotOffset + 3]);
-	
+	PrtReport(Dummy,0);
 	height = cBuff[ScrFormat - SnapshotOffset + 2];
 	width = cBuff[ScrFormat - SnapshotOffset + 3];
 
 // DEFINECONTROLS
 
-	printf("\nDEFINECONTROLS\t"); 
-	printf("\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + 3]));
-	printf("\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + 2]));
-	printf("\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + 1]));
-	printf("\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset]));
-	for (i = 4; i < 11; i++){
-		printf("\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + i]));
+	PrtReport("\nDEFINECONTROLS\t",0); 
+	for (i = 0; i < 11; i++){
+		sprintf(Dummy,"\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + i]));
+		PrtReport(Dummy,0);
 	}
-	printf ("\n");
-
+	PrtReport("\n",0);
+	
 // DEFINEMESSAGES
 
-	printf("\nDEFINEMESSAGES\n"); 
+	PrtReport("\nDEFINEMESSAGES\n",0); 
 	for (i=0; i<nummsg; i++){
-		printf("\t\t\"%s\"\n",MSG[i]);
+		sprintf(Dummy,"\t\t\"%s\"\n",MSG[i]);
+		PrtReport(Dummy,0);
 	}
-	printf("\n");
+	PrtReport("\n",0);
 	
 // DEFINEBLOCK
 
 	for (i = 0; i < numblk; i++){
-		printf("DEFINEBLOCK\t%s\n\t\t", BlockType[cBuff[bprop - SnapshotOffset + i]]);
+		sprintf(Dummy,"DEFINEBLOCK\t%s\n\t\t", BlockType[cBuff[bprop - SnapshotOffset + i]]);
+		PrtReport(Dummy,0);
 		for (j = 0; j < 8; j++){
-				printf("%d ", cBuff[i * 8 + chgfx - SnapshotOffset + j]);
+			sprintf(Dummy,"%d ", cBuff[i * 8 + chgfx - SnapshotOffset + j]);
+			PrtReport(Dummy,0);
 		}
-		printf("\n\t\t%d\n\n", cBuff[bcol - SnapshotOffset + i]);
+		sprintf(Dummy,"\n\t\t%d\n\n", cBuff[bcol - SnapshotOffset + i]);
+		PrtReport(Dummy,0);
 	}
 
 // DEFINESPRITE
 
 	OffsetPtr = sprgfx - SnapshotOffset;
 	for (i = 0; i < numspr; i++){
-		printf("DEFINESPRITE\t%d\n\t\t", cBuff[frmlst - SnapshotOffset + i*2 + 1]);
+		sprintf(Dummy,"DEFINESPRITE\t%d\n\t\t", cBuff[frmlst - SnapshotOffset + i*2 + 1]);
+		PrtReport(Dummy,0);
 		for (j = 0; j < cBuff[frmlst - SnapshotOffset + i*2 + 1]; j++){
 			for (k = 0; k < 32; k++){
-				printf("%d ", cBuff[OffsetPtr]);
+				sprintf(Dummy,"%d ", cBuff[OffsetPtr]);
+				PrtReport(Dummy,0);
 				OffsetPtr++;
-				if (k == 15) printf("\n\t\t");
+				if (k == 15) PrtReport("\n\t\t",0);
 			}
 			OffsetPtr += 96;
-			printf("\n\t\t");
+			PrtReport("\n\t\t",0);
 		}
-		printf("\n");
+		PrtReport("\n",0);
 	}
 	
 // DEFINEOBJECT
 
 	OffsetPtr = objdta - SnapshotOffset;
 	for (i = 0; i < numobj; i++){
-		printf("DEFINEOBJECT\t%d %d %d %d\n\t\t",
+		sprintf(Dummy,"DEFINEOBJECT\t%d %d %d %d\n\t\t",
 			cBuff[OffsetPtr + 32],
 			cBuff[OffsetPtr + 33],
 			cBuff[OffsetPtr + 34],
 			cBuff[OffsetPtr + 35]
 		);
+		PrtReport(Dummy,0);
 		for (k = 0; k < 32; k++){
-			printf("%d ", cBuff[OffsetPtr + k]);
-			if (k == 15) printf("\n\t\t");
+			sprintf(Dummy,"%d ", cBuff[OffsetPtr + k]);
+			PrtReport(Dummy,0);
+			if (k == 15) PrtReport("\n\t\t",0);
 		}
 		OffsetPtr += 39;
-		printf("\n\n");
+		PrtReport("\n\n",0);
 	}
 
 // Read SPRITEPOSITION data
@@ -126,21 +132,23 @@ int height;
 	for (i = 0; i < numsc; i++){
 		scrlen = (cBuff[OffsetPtr + i * 2 + 1]) * 256 + cBuff[OffsetPtr + i * 2] ;
 		k = 0;
-		printf("DEFINESCREEN\t");
+		PrtReport("DEFINESCREEN\t",0);
 		while (k < width * height){
 				if (cBuff[ScrDataPtr] != 0xff){
-					printf("%3d ", cBuff[ScrDataPtr]);
+					sprintf(Dummy,"%3d ", cBuff[ScrDataPtr]);
+					PrtReport(Dummy,0);
 					ScrDataPtr++;
 					k ++;
 					if (k % width == 0){
-						printf("\n\t\t");
+						PrtReport("\n\t\t",0);
 					}
 				} else {
 					blk = cBuff[ScrDataPtr + 1];
 					nr = cBuff[ScrDataPtr + 2];
 					if (nr == 0) nr = 256;
 					for (j = 0; j < nr; j++){
-						printf("%3d ", blk);
+						sprintf(Dummy,"%3d ", blk);
+						PrtReport(Dummy,0);
 						k ++;
 						if (k % width == 0) printf("\n\t\t");
 					}
@@ -148,41 +156,46 @@ int height;
 					j += 2;
 				}
 		}
-		printf("\n");
+		PrtReport("\n",0);
 
 // SPRITEPOSITION
 
 		j = NMEptr[i] - SnapshotOffset;
 		while (cBuff[j] != 0xff){
-			printf ("SPRITEPOSITION\t%d %d %d %d\n",cBuff[j],cBuff[j + 1],cBuff[j + 2],cBuff[j + 3]);
+			sprintf (Dummy,"SPRITEPOSITION\t%d %d %d %d\n",cBuff[j],cBuff[j + 1],cBuff[j + 2],cBuff[j + 3]);
+			PrtReport(Dummy,0);
 			j = j + 4;
 		}
-		printf("\n");
+		PrtReport("\n",0);
 
 	}
 
 // MAP
 
-	printf("MAP\t\tWIDTH %d\n",mapwid);
-	printf("\t\tSTARTSCREEN %d\n",mapstart);
+	sprintf(Dummy,"MAP\t\tWIDTH %d\n",mapwid);
+	PrtReport(Dummy,0);
+	sprintf(Dummy,"\t\tSTARTSCREEN %d\n",mapstart);
+	PrtReport(Dummy,0);
 
 	for (i = 0; i < (Event[0] - mapdat - 1) / mapwid - 2; i++){
-		printf("\t\t");
+		PrtReport("\t\t",0);
 		for (j = 0; j < mapwid; j++){
-			printf("%3d ",cBuff[mapdat + mapwid + i * mapwid + j - SnapshotOffset]);	
+			sprintf(Dummy,"%3d ",cBuff[mapdat + mapwid + i * mapwid + j - SnapshotOffset]);	
+			PrtReport(Dummy,0);
 		}
-		printf("\n");
+		PrtReport("\n",0);
 	}
-	printf("ENDMAP\n\n");
+	PrtReport("ENDMAP\n\n",0);
 
 // FONT
 
-	printf("DEFINEFONT\t\t");
+	PrtReport("DEFINEFONT\t",0);
 	for (i = 0; i < 96; i++){
 		for (j = 0; j < 8; j++){
-			printf("%d ",cBuff[font - SnapshotOffset + i * 8 + j]);
+			sprintf(Dummy,"%d ",cBuff[font - SnapshotOffset + i * 8 + j]);
+			PrtReport(Dummy,0);
 		}
-		printf("\n\t\t");
+		PrtReport("\n\t\t",0);
 	}
 
 	return;

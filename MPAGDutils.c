@@ -12,6 +12,7 @@ extern unsigned int Event[22];
 extern int VarAddress;
 extern int ptr_offset;
 extern int iflag;
+extern int debug;
 extern FILE *fpDest;
 
 extern char MSG[255][255];
@@ -414,13 +415,14 @@ int FindAddress(char *AsmCodeString){
 		}
 		
 		if (strcmp(Filter, AsmCodeString) == 0){
-//			return (i + SnapshotOffset);
 			address = i + SnapshotOffset;
 			flag++;
 		}
 	}
-	if (flag == 0) printf("NOT FOUND %s\n",AsmCodeString);
-	if (flag == 2) printf("MULTIPLE ENTRIES FOUND %s\n",AsmCodeString);
+	if (debug != 0){
+		if (flag == 0) printf("  Pattern %s NOT FOUND\n",AsmCodeString);
+		if (flag == 2) printf("  Pattern %s MULTIPLE ENTRIES FOUND\n",AsmCodeString);
+	}
 	return address;
 }
 
@@ -431,6 +433,7 @@ void Init(){
 	
 // Locate routines in engine by unique code
 
+	PrtReport("\nChecking reference patterns:\n",2);
 	EngineStart = FindAddress("22365C") - 3;
 	CallSpawn   = FindAddress("C92B2BC9") + 4;
 	CallCangoL  = FindAddress("C9DD6E08DD7E09D602")+1;
@@ -507,12 +510,10 @@ void Init(){
 	sprintf(cmd_ANIMMED      ,"3E01CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
 	sprintf(cmd_ANIMSLOW	 ,"3E03CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
 	sprintf(cmd_ANIMVSLOW	 ,"3E07CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
-
 	sprintf(cmd_ANIMBACK      ,"AFCD%02X%02X"           ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
 	sprintf(cmd_ANIMBACKMED   ,"3E01CD%02X%02X"         ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
 	sprintf(cmd_ANIMBACKSLOW  ,"3E03CD%02X%02X"         ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
 	sprintf(cmd_ANIMBACKVSLOW ,"3E07CD%02X%02X"         ,CallAnimBack  & 0xff, CallAnimBack  >> 8);
-
 	sprintf(cmd_ATVALVAL     ,"21xxxx22%02X%02X"        ,(VarAddress + 31)  & 0xff, (VarAddress + 31)  >> 8);
 	sprintf(cmd_BEEPVAL      ,"3Exx32%02X%02X"          ,sndtype  & 0xff, sndtype  >> 8);
 	sprintf(cmd_BEEPVAR      ,"3AxxxxE67F32%02X%02X"    ,sndtype  & 0xff, sndtype  >> 8);
@@ -561,12 +562,10 @@ void Init(){
 	sprintf(cmd_LASERSPRVAR	 ,"DD7ExxCD%02X%02X"	    ,CallShoot  & 0xff, CallShoot  >> 8);
 	sprintf(cmd_LASERVAR	 ,"3AxxxxCD%02X%02X"	    ,CallShoot  & 0xff, CallShoot  >> 8);
 	sprintf(cmd_LASERZERO	 ,"AFCD%02X%02X"		    ,CallShoot  & 0xff, CallShoot  >> 8);
-
 	sprintf(cmd_MENUZERO	 ,"AFCD%02X%02X"            ,CallMenu  & 0xff, CallMenu  >> 8);
 	sprintf(cmd_MENUVAL		 ,"3ExxCD%02X%02X"          ,CallMenu  & 0xff, CallMenu  >> 8);
 	sprintf(cmd_MENUVAR		 ,"3AxxxxCD%02X%02X"        ,CallMenu  & 0xff, CallMenu  >> 8);
 	sprintf(cmd_MENUSPRVAR	 ,"DD7ExxCD%02X%02X"        ,CallMenu  & 0xff, CallMenu  >> 8);
-
 	sprintf(cmd_MESSAGEVAL   ,"3ExxCD%02X%02X"          ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_MESSAGEVAR   ,"3AxxxxCD%02X%02X"        ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_MESSAGEZERO  ,"AFCD%02X%02X"            ,CallDmsg  & 0xff, CallDmsg  >> 8);
@@ -738,7 +737,7 @@ void Info(){
 
 // Print table addresses
 
-	sprintf (Dummy,"EngineAddress: %04X\n",EngineStart);
+	sprintf (Dummy,"\nEngineAddress: %04X\n",EngineStart);
 	PrtReport(Dummy,2);
 	sprintf (Dummy,"VarAddress   : %04X\n",VarAddress);
 	PrtReport(Dummy,2);
@@ -881,9 +880,6 @@ void PrtReport(char *String, int Flag){
 					break;
 				case 2:
 					if (debug == 1){
-						printf ("%s", String);
-						break;
-					} else {
 						printf ("%s", String);
 						break;
 					}
