@@ -105,7 +105,7 @@ int main( int argc, const char* argv[] )
 	strcpy(szDestFilename,szSourceFilename);
 	ext = strstr(szDestFilename,".sna");
 	if (ext != NULL) {
-		strcpy(ext,"-conv.agd");
+		strcpy(ext,"-org.agd");
 	}
 	if ( !fpSource )
 	{
