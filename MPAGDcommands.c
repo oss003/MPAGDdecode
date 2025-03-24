@@ -7707,3 +7707,31 @@ int tst_ZEROBONUS(){
 	}
 }
 
+int tst_GRAV(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02Xxxxx%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_GRAV, cPattern) == 0){
+printf("GRAV\n");
+		event_ptr = event_ptr + 9;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+

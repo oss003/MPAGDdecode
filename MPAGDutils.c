@@ -480,6 +480,7 @@ void Init(){
 	CallDig		= FindAddress("DD66093E10DD86086F18") - 10;
 	CallMenu	= FindAddress("E51601AF32") - 21;
 	CallInv		= CallMenu - 17;
+	CallGrav	= FindAddress("DD7E0DA7C83CCA");
 	
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
@@ -545,6 +546,7 @@ void Init(){
 	sprintf(cmd_GETBLOCKS    ,"CD%02X%02X"              ,CallGetcol  & 0xff, CallGetcol  >> 8);
 	sprintf(cmd_GETVAL       ,"3ExxCD%02X%02X"          ,CallGetob  & 0xff, CallGetob  >> 8);
 	sprintf(cmd_GETVAR       ,"3AxxxxCD%02X%02X"        ,CallGetob & 0xff, CallGetob  >> 8);
+	sprintf(cmd_GRAV         ,"21000022xxxxC3%02X%02X"  ,CallGrav & 0xff, CallGrav  >> 8);
 	sprintf(cmd_IFCOLLBULLET ,"CD%02X%02XD2xxxx"		,CallLcol & 0xff, CallLcol >> 8);
 	sprintf(cmd_IFGOTVAL     ,"3ExxCD%02X%02XDAxxxx"    ,CallGotob  & 0xff, CallGotob  >> 8);
 	sprintf(cmd_IFGOTVAR     ,"3AxxxxCD%02X%02XDAxxxx"  ,CallGotob  & 0xff, CallGotob  >> 8);

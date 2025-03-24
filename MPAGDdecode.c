@@ -87,7 +87,7 @@ int main( int argc, const char* argv[] )
 //
 	sprintf (Dummy,"==============================================================\n");
 	PrtReport(Dummy,2);
-	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.0                             KC 2025\n");
+	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.1                             KC 2025\n");
 	PrtReport(Dummy,2);
 	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,2);
@@ -235,6 +235,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x21:
 					if (tst_RESTART())            break;
+					if (tst_GRAV())				  break;
 					if (tst_TICKERZERO())		  break;
 					if (tst_ENDREPEAT())          break;
 					if (tst_PUTBLOCKZERO())       break;

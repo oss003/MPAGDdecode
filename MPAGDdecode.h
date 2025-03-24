@@ -49,6 +49,7 @@ int CallVapour;
 int CallDig;
 int CallMenu;
 int CallInv;
+int CallGrav;
 
 int ptr_offset;
 int sndtype;
@@ -205,6 +206,7 @@ char cmd_GETRANDOMVAR[]		= "3Axxxx57CDxxxx67CDxxxx7C32xxxx";
 char cmd_GETRANDOMVAL[]		= "3Exx57CDxxxx67CDxxxx7C32xxxx";
 char cmd_GETVAR[]			= "3AxxxxCDxxxx";
 char cmd_GETVAL[]			= "3ExxCDxxxx";
+char cmd_GRAV[]				= "21000022xxxxC3xxxx";
 char cmd_IFGOTZERO[]		= "AFCDxxxxDAxxxx";
 char cmd_IFGOTVAR[]			= "3AxxxxCDxxxxDAxxxx";
 char cmd_IFGOTVAL[]			= "3ExxCDxxxxDAxxxx";
