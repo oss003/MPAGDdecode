@@ -879,10 +879,11 @@ void PrtReport(char *String, int Flag){
 					}
 					break;
 				case 2:
-					if (debug == 1){
+//					if (debug == 1){
 						printf ("%s", String);
+						fprintf(fpDest, "%s", String);
 						break;
-					}
+//					}
 					break;
 				default:
 					break;
