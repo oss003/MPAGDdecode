@@ -235,7 +235,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x21:
 					if (tst_RESTART())            break;
-					if (tst_GRAV())				  break;
+					if (tst_PLOTVALVAL())		  break;
 					if (tst_TICKERZERO())		  break;
 					if (tst_ENDREPEAT())          break;
 					if (tst_PUTBLOCKZERO())       break;
@@ -255,7 +255,10 @@ int main( int argc, const char* argv[] )
 					event_ptr++;
 					break;
 				case 0x26:
+					if (tst_PLOTVALVAR())		  break;
+					if (tst_PLOTVALSPRVAR())	  break;
 					if (tst_GETBLKVALVAR())       break;
+					if (tst_GETBLKVALSPRVAR())    break;
 					if (tst_GETBLKZEROSPRVAR())	  break; 
 					if (tst_GETBLKVALSPRVAR())	  break;
 					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
@@ -263,12 +266,21 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x2e:
 					if (tst_ATVALVAR())           break;
+					if (tst_ATZEROSPRVAR())		  break;
+					if (tst_ATVALSPRVAR())		  break;
 					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
 					break;
 				case 0x3a:
 					if (tst_RANDOMIZEVAR())		  break;
+					if (tst_PLOTVARZERO())		  break;
+					if (tst_PLOTVARVAL())		  break;
+					if (tst_PLOTVARVAR())		  break;
+					if (tst_PLOTVARSPRVAR())	  break;
 					if (tst_IFWHILE(1))           break;
+					if (tst_CLUTVAR())			  break;
+					if (tst_ATVARZERO())		  break;
+					if (tst_ATVARSPRVAR())		  break;
 					if (tst_TICKERVARZERO())	  break;
 					if (tst_TICKERVARVAL())		  break;
 					if (tst_TICKERVARVAR())		  break;
@@ -327,6 +339,7 @@ int main( int argc, const char* argv[] )
 				case 0x3e:
 					if (tst_RANDOMIZEVAL())		  break;
 					if (tst_IFWHILE(2))           break;
+					if (tst_CLUTVAL())			  break;
 					if (tst_TICKERVALVAR())		  break;
 					if (tst_DIGVAL())			  break;
 					if (tst_MENUVAL())			  break;
@@ -366,6 +379,7 @@ int main( int argc, const char* argv[] )
 				case 0xaf:
 					if (tst_IFWHILE(3))           break;
 					if (tst_STARZERO())			  break;
+					if (tst_CLUTZERO())			  break;
 					if (tst_MENUZERO())			  break;
 					if (tst_INVZERO())			  break;
 					if (tst_DIGZERO())			  break;
@@ -426,7 +440,15 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0xdd:
 					if (tst_IFWHILE(4))           break;
+					if (tst_PLOTSPRVARZERO())	  break;
+					if (tst_PLOTSPRVARVAL())	  break;
+					if (tst_PLOTSPRVARVAR())	  break;
+					if (tst_PLOTSPRVARSPRVAR())	  break;
 					if (tst_BEEPSPRVAR())		  break;
+					if (tst_ATSPRVARZERO())		  break;
+					if (tst_ATSPRVARVAL())		  break;
+					if (tst_ATSPRVARVAR())		  break;
+					if (tst_CLUTSPRVAR())		  break;
 					if (tst_JUMPSPRVAR())		  break;
 					if (tst_STARSPRVAR())		  break;
 					if (tst_MENUSPRVAR())		  break;

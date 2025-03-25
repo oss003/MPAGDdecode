@@ -480,8 +480,8 @@ void Init(){
 	CallDig		= FindAddress("DD66093E10DD86086F18") - 10;
 	CallMenu	= FindAddress("E51601AF32") - 21;
 	CallInv		= CallMenu - 17;
-	CallGrav	= FindAddress("DD7E0DA7C83CCA");
-	
+	CallPlot	= FindAddress("7CE60716005F21");
+
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
 	evntloc		= FindAddress("5E2356EBE9") - SnapshotOffset + 7;
@@ -546,7 +546,6 @@ void Init(){
 	sprintf(cmd_GETBLOCKS    ,"CD%02X%02X"              ,CallGetcol  & 0xff, CallGetcol  >> 8);
 	sprintf(cmd_GETVAL       ,"3ExxCD%02X%02X"          ,CallGetob  & 0xff, CallGetob  >> 8);
 	sprintf(cmd_GETVAR       ,"3AxxxxCD%02X%02X"        ,CallGetob & 0xff, CallGetob  >> 8);
-	sprintf(cmd_GRAV         ,"21000022xxxxC3%02X%02X"  ,CallGrav & 0xff, CallGrav  >> 8);
 	sprintf(cmd_IFCOLLBULLET ,"CD%02X%02XD2xxxx"		,CallLcol & 0xff, CallLcol >> 8);
 	sprintf(cmd_IFGOTVAL     ,"3ExxCD%02X%02XDAxxxx"    ,CallGotob  & 0xff, CallGotob  >> 8);
 	sprintf(cmd_IFGOTVAR     ,"3AxxxxCD%02X%02XDAxxxx"  ,CallGotob  & 0xff, CallGotob  >> 8);
@@ -573,6 +572,19 @@ void Init(){
 	sprintf(cmd_MESSAGEZERO  ,"AFCD%02X%02X"            ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_NEXTLEVEL    ,"21%02X%02X74"            ,nexlev  & 0xff, nexlev  >> 8);
 	sprintf(cmd_OTHER        ,"DD2A%02X%02X"            ,skptr  & 0xff, skptr  >> 8);
+
+	sprintf(cmd_PLOTVALVAL	 ,"21xxxx22xxxxCD%02X%02X"  		,CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTVALVAR	 ,"26xx3Axxxx6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTVALSPRVAR,"26xxDD7Exx6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTVARZERO  ,"3Axxxx67AF6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTVARVAL   ,"3Axxxx673Exx6F22xxxxCD%02X%02X"  ,CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTVARVAR   ,"3Axxxx673Axxxx6F22xxxxCD%02X%02X",CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTVARSPRVAR,"3Axxxx67DD7Exx6F22xxxxCD%02X%02X",CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTSPRVARZERO,"DD7Exx67AF6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTSPRVARVAL,"DD7Exx673Exx6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTSPRVARVAR,"DD7Exx673Axxxx6F22xxxxCD%02X%02X",CallPlot  & 0xff, CallPlot  >> 8);
+	sprintf(cmd_PLOTSPRVARSPRVAR,"DD7Exx67DD7Exx6F22xxxxCD%02X%02X",CallPlot  & 0xff, CallPlot  >> 8);
+
 	sprintf(cmd_PRINTMODEVAL ,"3Exx32%02X%02X"          ,prtmod  & 0xff, prtmod  >> 8);
 	sprintf(cmd_PRINTMODEVAR ,"3Axxxx32%02X%02X"        ,prtmod  & 0xff, prtmod  >> 8);
 	sprintf(cmd_PRINTMODEZERO,"AF32%02X%02X"            ,prtmod  & 0xff, prtmod  >> 8);
