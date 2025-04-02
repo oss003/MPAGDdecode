@@ -2021,6 +2021,7 @@ int tst_IFCOLLSPRVAR(){
 //--------------------------------------------
 
 int tst_IFCOLLVAL(){
+
 // Define variables
 
 	char cPattern[64];
@@ -2038,7 +2039,7 @@ int tst_IFCOLLVAL(){
 
 // Compare pattern with template
 
-	if (strcmp(cmd_IFCOLLVAL, cPattern) == 0){
+	if (strcmp(cmd_TEST, cPattern) == 0){
 		sprintf (Dummy,"%04X IF COLLISION %d\n", event_ptr + SnapshotOffset, DataByte); 
 		PrtReport(Dummy,1);
 		PushIFstack(6);
@@ -7230,6 +7231,42 @@ int tst_REPEATVAL(){
 		} else {
 			return 0;
 		}
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 76. REPEAT SPRVAR
+//--------------------------------------------
+
+int tst_REPEATSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_REPEATSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X REPEAT %s\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 6;
+//		ident++;
+		return 1;
 	} else {
 		return 0;
 	}

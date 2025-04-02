@@ -150,11 +150,12 @@ char *k1, *k2,*k3,*k4;
 						sprintf(Dummy,"%3d ", blk);
 						PrtReport(Dummy,0);
 						k ++;
-						if (k % width == 0) printf("\n\t\t");
+						if (k % width == 0) PrtReport("\n\t\t",0);
 					}
 					ScrDataPtr += 3;
 					j += 2;
 				}
+//				if (k % width == 0) printf("\n\t\t");
 		}
 		PrtReport("\n",0);
 

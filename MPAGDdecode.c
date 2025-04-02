@@ -11,6 +11,7 @@
 #include "MPAGDcommands.c"
 #include "MPAGDutils.c"
 #include "MPAGDgraphics.c"
+extern int AdvMode;
 
 
 // Definitions
@@ -40,6 +41,7 @@ unsigned int Event[22];
 int keys;
 int iflag;
 int debug = 0;
+int AdvMode;
 
 char MSG[255][255];
 int NMEptr[100];
@@ -87,7 +89,7 @@ int main( int argc, const char* argv[] )
 //
 	sprintf (Dummy,"==============================================================\n");
 	PrtReport(Dummy,2);
-	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.1                             KC 2025\n");
+	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.4                             KC 2025\n");
 	PrtReport(Dummy,2);
 	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,2);
@@ -151,7 +153,8 @@ int main( int argc, const char* argv[] )
 
 	Init();
 	Info();
-	
+	AdvMode		= FindAddress("772373237223F1772322");
+
 // Locate start of eventdata
 
 	Address = FindAddress("C5DD7E003C20") - SnapshotOffset - 20;
@@ -168,10 +171,13 @@ int main( int argc, const char* argv[] )
     }
 	sprintf(Dummy,";----------------------------------------------------------------\n");
 	PrtReport(Dummy,0);
-	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.0 KC 2025\n");
+	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.4 KC 2025\n");
 	PrtReport(Dummy,0);
 	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,0);
+	if (AdvMode > 0){
+		PrtReport(";\n; Adventuremode used\n",2);
+	}	
 	sprintf(Dummy,";----------------------------------------------------------------\n");
 	PrtReport(Dummy,0);
 	
@@ -440,6 +446,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0xdd:
 					if (tst_IFWHILE(4))           break;
+					if (tst_REPEATSPRVAR())		  break;
 					if (tst_PLOTSPRVARZERO())	  break;
 					if (tst_PLOTSPRVARVAL())	  break;
 					if (tst_PLOTSPRVARVAR())	  break;

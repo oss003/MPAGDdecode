@@ -106,7 +106,7 @@ const char *ReadVarName(offset){
 //	if (Address == CallPrtmod){
 //		Address = VarAddress + 37;
 //	}
-//printf("Offset:%d\n",Address - VarAddress);
+//printf("Variable: %04X\nOffset:%d\n",Address,Address - VarAddress);
 
 	switch (Address - VarAddress){
 		case  0: VARname = "TOPEDGE"; break;
@@ -423,6 +423,8 @@ int FindAddress(char *AsmCodeString){
 		if (flag == 0) printf("  Pattern %s NOT FOUND\n",AsmCodeString);
 		if (flag == 2) printf("  Pattern %s MULTIPLE ENTRIES FOUND\n",AsmCodeString);
 	}
+	
+	if (flag == 0) return 0;
 	return address;
 }
 
@@ -481,7 +483,7 @@ void Init(){
 	CallMenu	= FindAddress("E51601AF32") - 21;
 	CallInv		= CallMenu - 17;
 	CallPlot	= FindAddress("7CE60716005F21");
-
+	
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
 	evntloc		= FindAddress("5E2356EBE9") - SnapshotOffset + 7;
