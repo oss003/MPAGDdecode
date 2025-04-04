@@ -139,9 +139,7 @@ char *k1, *k2,*k3,*k4;
 					PrtReport(Dummy,0);
 					ScrDataPtr++;
 					k ++;
-					if (k % width == 0){
-						PrtReport("\n\t\t",0);
-					}
+					if (k % width == 0)	PrtReport("\n\t\t",0);
 				} else {
 					blk = cBuff[ScrDataPtr + 1];
 					nr = cBuff[ScrDataPtr + 2];

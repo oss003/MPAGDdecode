@@ -7171,27 +7171,30 @@ int tst_REPEATVAR(){
 // Define variables
 
 	char cPattern[64];
+	int Address;
 
 // Read pattern from buffer
 
-	sprintf(cPattern, "%02Xxxxx%02X%02X%02X",
+	sprintf(cPattern, "%02Xxxxx%02Xxxxx",
 		cBuff[event_ptr + 0],
-		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 4],
-		cBuff[event_ptr + 5]);
+		cBuff[event_ptr + 3]);
 
 // Read parameters
 
 	const char *VARname = ReadVarName(1);
+	Address = ReadAddress(event_ptr + 4);
 
 // Compare pattern with template
 
 	if (strcmp(cmd_REPEATVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X REPEAT %s\n", event_ptr + SnapshotOffset, VARname); 
-		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 6;
-//		ident++;
-		return 1;
+		if (Address == 0x5c81 || Address == 0x5cb0 || Address == 0x5cb1){ 
+			sprintf (Dummy,"%04X REPEAT %s\n", event_ptr + SnapshotOffset, VARname); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 6;
+			return 1;
+		} else {
+			return 0;
+		}
 	} else {
 		return 0;
 	}
@@ -7246,6 +7249,7 @@ int tst_REPEATSPRVAR(){
 
 	char cPattern[64];
 	int sprVARval;
+	int Address;
 	
 // Read pattern from buffer
 
@@ -7257,16 +7261,20 @@ int tst_REPEATSPRVAR(){
 // Read parameters
 
 	sprVARval = ReadParam(2);
+	Address = ReadAddress(event_ptr + 4);
 	const char *sprVARname = ReadSprVarName(sprVARval);
 
 // Compare pattern with template
 
 	if (strcmp(cmd_REPEATSPRVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X REPEAT %s\n", event_ptr + SnapshotOffset, sprVARname); 
-		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 6;
-//		ident++;
-		return 1;
+		if (Address == 0x5c81 || Address == 0x5cb0 || Address == 0x5cb1){ 
+			sprintf (Dummy,"%04X REPEAT %s\n", event_ptr + SnapshotOffset, sprVARname); 
+			PrtReport(Dummy,1);
+			event_ptr = event_ptr + 6;
+			return 1;
+		} else {
+			return 0;
+		}
 	} else {
 		return 0;
 	}
