@@ -45,7 +45,11 @@ char *k1, *k2,*k3,*k4;
 // DEFINECONTROLS
 
 	PrtReport("\nDEFINECONTROLS\t",0); 
-	for (i = 0; i < 11; i++){
+	for (i = 0; i < 4; i++){
+		sprintf(Dummy,"\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + 3 - i]));
+		PrtReport(Dummy,0);
+	}
+	for (i = 4; i < 11; i++){
 		sprintf(Dummy,"\'%c\' ",ConvertKey(cBuff[keys - SnapshotOffset + i]));
 		PrtReport(Dummy,0);
 	}

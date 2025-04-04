@@ -89,7 +89,7 @@ int main( int argc, const char* argv[] )
 //
 	sprintf (Dummy,"==============================================================\n");
 	PrtReport(Dummy,2);
-	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.4                             KC 2025\n");
+	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.5                             KC 2025\n");
 	PrtReport(Dummy,2);
 	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,2);
@@ -171,7 +171,7 @@ int main( int argc, const char* argv[] )
     }
 	sprintf(Dummy,";----------------------------------------------------------------\n");
 	PrtReport(Dummy,0);
-	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.4 KC 2025\n");
+	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.5 KC 2025\n");
 	PrtReport(Dummy,0);
 	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,0);
