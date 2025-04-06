@@ -191,16 +191,14 @@ int main( int argc, const char* argv[] )
 	
 	for (Events = 0; Events < 21; Events++){
 		
-//		printf("\n;----------------------------------------------------------");
-        if (ident != 0){
+ if (ident != 0){
 			d=ident;
 			sprintf(Dummy,"     ENDIF\n");
 			for (i=0; i<d; i++){
 					PrtReport(Dummy,1);
-//					ident--;
 			}
 		}
-//		printf("\n%s\n",EventName[Events]);
+		
 		sprintf(Dummy,"\n;----------------------------------------------------------------\n");
 		PrtReport(Dummy,0);
 		sprintf(Dummy,"%s\n",EventName[Events]);
@@ -262,6 +260,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x26:
 					if (tst_PLOTVALVAR())		  break;
+					if (tst_RESTORE2())			  break;
 					if (tst_PLOTVALSPRVAR())	  break;
 					if (tst_GETBLKVALVAR())       break;
 					if (tst_GETBLKVALSPRVAR())    break;
@@ -480,7 +479,7 @@ int main( int argc, const char* argv[] )
 					if (tst_SUB1FROMSPRVAR())     break;
 					if (tst_REMOVE())             break;
 					if (tst_OTHER())              break;
-					if (tst_RESTORE())            break;
+					if (tst_RESTORE1())            break;
 					if (tst_DELAYVAL())           break;
 					if (tst_DELAYVAR())           break;
 					if (tst_LASERSPRVAR())        break;

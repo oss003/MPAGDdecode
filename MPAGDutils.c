@@ -353,7 +353,7 @@ int CheckDATAstack(Address){
 	for (i = 0; i < 100; i++){
 		if (DATAstack[i] == Address){
 			DATAstack[i] = 0;
-			if (Events < 9){
+			if (Events < 10){
 				DATAstart = ((cBuff[Address - SnapshotOffset + 18] << 8) + cBuff[Address - SnapshotOffset + 17]);
 				Offset = 28;
 			} else {
@@ -364,7 +364,7 @@ int CheckDATAstack(Address){
 			for (ptr = 0; ptr < DATAlen; ptr++){
 				Getal = ptr % 10;
 				if (Getal == 0){
-					if (ptr != 0) printf("\n");
+					if (ptr != 0) PrtReport("\n",0);
 					sprintf (Dummy,"%04X DATA %d ",DATAstart + ptr,cBuff[DATAstart - SnapshotOffset + ptr]);
 					PrtReport(Dummy,1);
 				} else {
@@ -372,7 +372,7 @@ int CheckDATAstack(Address){
 					PrtReport(Dummy,0);
 				}
 			}
-			printf("\n");
+			PrtReport("\n",0);
 			event_ptr = event_ptr + Offset;
 		}
 	}

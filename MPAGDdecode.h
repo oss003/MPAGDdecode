@@ -325,7 +325,8 @@ char cmd_REPEATVAR[]		= "3Axxxx32xxxx";				// Test before LETVAREQVAR
 char cmd_REPEATVAL[]		= "3Exx32xxxx";					// Test before LETVAREQVAL!!
 char cmd_REPEATSPRVAR[]		= "DD7Exx32xxxx";				// Test before LETSPRVAREQVAL!!
 char cmd_RESTART[]			= "21xxxx3601";
-char cmd_RESTORE[]			= "DD3610FF";
+char cmd_RESTORE1[]			= "DD3610FF";
+char cmd_RESTORE2[]			= "26FF22xxxx";
 char cmd_SCOREVAR[]         = "3Axxxx6F2600CDxxxx";
 char cmd_SCOREVAL[]         = "21xxxxCDxxxx";
 char cmd_SCREENL[]			= "CDxxxx";
@@ -482,8 +483,8 @@ const char *OPstring[]={
 
 const char *KeyString[]={
 	"",
-	"RIGHT",
 	"LEFT",
+	"RIGHT",
 	"DOWN",
 	"UP",
 	"FIRE",

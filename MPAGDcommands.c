@@ -7313,7 +7313,7 @@ int tst_RESTART(){
 // 78. RESTORE
 //--------------------------------------------
 
-int tst_RESTORE(){
+int tst_RESTORE1(){
 
 // Define variables
 
@@ -7329,10 +7329,39 @@ int tst_RESTORE(){
 
 // Compare pattern with template
 
-	if (strcmp(cmd_RESTORE, cPattern) == 0){
+	if (strcmp(cmd_RESTORE1, cPattern) == 0){
 		sprintf (Dummy,"%04X RESTORE\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 4;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 78. RESTORE
+//--------------------------------------------
+
+int tst_RESTORE2(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_RESTORE2, cPattern) == 0){
+		sprintf (Dummy,"%04X RESTORE\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 5;
 		return 1;
 	} else {
 		return 0;
