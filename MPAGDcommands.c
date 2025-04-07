@@ -7649,6 +7649,182 @@ int tst_SHOWSCORE(){
 }
 
 //--------------------------------------------
+// 87. SILENCE
+//--------------------------------------------
+
+int tst_SILENCE(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_SILENCE, cPattern) == 0){
+		sprintf (Dummy,"%04X SILENCE\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 3;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 88. SOUNDZERO ZERO
+//--------------------------------------------
+
+int tst_SOUNDZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_SOUNDVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X SOUND %d\n", event_ptr + SnapshotOffset, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 88. SOUND VAL
+//--------------------------------------------
+
+int tst_SOUNDVAL(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 7]);
+
+// Read parameters
+
+	DataByte = ReadParam(4);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_SOUNDZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X SOUND %d\n", event_ptr + SnapshotOffset, DataByte); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 88. SOUND VAR
+//--------------------------------------------
+
+int tst_SOUNDVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02X%02X%02X%02Xxxxx%02Xxxxx%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 9],
+		cBuff[event_ptr + 12],
+		cBuff[event_ptr + 13]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(1);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_SOUNDVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X SOUND %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 16;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
+// 88. SOUND SPRVAR
+//--------------------------------------------
+
+int tst_SOUNDSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02Xxx%02X%02X%02X%02Xxxxx%02Xxxxx%02X%02Xxxxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 9],
+		cBuff[event_ptr + 12],
+		cBuff[event_ptr + 13]);
+
+// Read parameters
+
+	sprVARval = ReadParam(2);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_SOUNDSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X SOUND %s\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 16;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 89. SPAWN VAR VAR
 //--------------------------------------------
 

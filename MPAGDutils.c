@@ -483,6 +483,7 @@ void Init(){
 	CallMenu	= FindAddress("E51601AF32") - 21;
 	CallInv		= CallMenu - 17;
 	CallPlot	= FindAddress("7CE60716005F21");
+	CallSilence = FindAddress("0B78B120") + 6;
 	
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
@@ -574,7 +575,6 @@ void Init(){
 	sprintf(cmd_MESSAGEZERO  ,"AFCD%02X%02X"            ,CallDmsg  & 0xff, CallDmsg  >> 8);
 	sprintf(cmd_NEXTLEVEL    ,"21%02X%02X74"            ,nexlev  & 0xff, nexlev  >> 8);
 	sprintf(cmd_OTHER        ,"DD2A%02X%02X"            ,skptr  & 0xff, skptr  >> 8);
-
 	sprintf(cmd_PLOTVALVAL	 ,"21xxxx22xxxxCD%02X%02X"  		,CallPlot  & 0xff, CallPlot  >> 8);
 	sprintf(cmd_PLOTVALVAR	 ,"26xx3Axxxx6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
 	sprintf(cmd_PLOTVALSPRVAR,"26xxDD7Exx6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
@@ -586,7 +586,6 @@ void Init(){
 	sprintf(cmd_PLOTSPRVARVAL,"DD7Exx673Exx6F22xxxxCD%02X%02X"	,CallPlot  & 0xff, CallPlot  >> 8);
 	sprintf(cmd_PLOTSPRVARVAR,"DD7Exx673Axxxx6F22xxxxCD%02X%02X",CallPlot  & 0xff, CallPlot  >> 8);
 	sprintf(cmd_PLOTSPRVARSPRVAR,"DD7Exx67DD7Exx6F22xxxxCD%02X%02X",CallPlot  & 0xff, CallPlot  >> 8);
-
 	sprintf(cmd_PRINTMODEVAL ,"3Exx32%02X%02X"          ,prtmod  & 0xff, prtmod  >> 8);
 	sprintf(cmd_PRINTMODEVAR ,"3Axxxx32%02X%02X"        ,prtmod  & 0xff, prtmod  >> 8);
 	sprintf(cmd_PRINTMODEZERO,"AF32%02X%02X"            ,prtmod  & 0xff, prtmod  >> 8);
@@ -608,6 +607,7 @@ void Init(){
 	sprintf(cmd_SHOWBONUS    ,"21%02X%02X0606CDxxxx"    ,bonus  & 0xff, bonus  >> 8);
 	sprintf(cmd_SHOWHIGHSCORE,"21%02X%02X0606CDxxxx"    ,hiscor  & 0xff, hiscor  >> 8);
 	sprintf(cmd_SHOWSCORE    ,"21%02X%02X0606CDxxxx"    ,score  & 0xff, score  >> 8);
+	sprintf(cmd_SILENCE		 ,"CD%02X%02X"        		,CallSilence  & 0xff, CallSilence  >> 8);
 	sprintf(cmd_SPAWNVALVAL  ,"01xxxxCD%02X%02X"        ,CallSpawn  & 0xff, CallSpawn  >> 8);
 	sprintf(cmd_SPAWNED      ,"DD2A%02X%02X"  	        ,spptr  & 0xff, spptr  >> 8);
 	sprintf(cmd_STOPFALL	 ,"CD%02X%02X"				,CallGravst  & 0xff, CallGravst  >> 8);

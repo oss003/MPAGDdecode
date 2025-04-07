@@ -240,6 +240,8 @@ int main( int argc, const char* argv[] )
 				case 0x21:
 					if (tst_RESTART())            break;
 					if (tst_PLOTVALVAL())		  break;
+					if (tst_SOUNDZERO())		  break;
+					if (tst_SOUNDVAL())			  break;
 					if (tst_TICKERZERO())		  break;
 					if (tst_ENDREPEAT())          break;
 					if (tst_PUTBLOCKZERO())       break;
@@ -278,6 +280,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0x3a:
 					if (tst_RANDOMIZEVAR())		  break;
+					if (tst_SOUNDVAR())			  break;
 					if (tst_PLOTVARZERO())		  break;
 					if (tst_PLOTVARVAL())		  break;
 					if (tst_PLOTVARVAR())		  break;
@@ -413,6 +416,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0xcd:
 					if (tst_WAITKEY())            break;
+					if (tst_SILENCE())			  break;
 					if (tst_TRAIL())			  break;
 					if (tst_DEFINEKEY())          break;
 					if (tst_GETBLOCKS())          break;
@@ -446,6 +450,7 @@ int main( int argc, const char* argv[] )
 				case 0xdd:
 					if (tst_IFWHILE(4))           break;
 					if (tst_REPEATSPRVAR())		  break;
+					if (tst_SOUNDSPRVAR())		  break;
 					if (tst_PLOTSPRVARZERO())	  break;
 					if (tst_PLOTSPRVARVAL())	  break;
 					if (tst_PLOTSPRVARVAR())	  break;
