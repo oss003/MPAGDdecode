@@ -247,6 +247,7 @@ int main( int argc, const char* argv[] )
 					if (tst_PUTBLOCKZERO())       break;
 					if (tst_PUTBLOCKVAL())        break;
 					if (tst_PUTBLOCKVAR())        break;
+					if (tst_PUTBLOCKSPRVAR())     break;
 					if (tst_ATVALVAL())           break;
 					if (tst_SHOWBONUS())          break;
 					if (tst_SHOWSCORE())          break;

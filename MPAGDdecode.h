@@ -289,7 +289,6 @@ char cmd_OTHER[]			= "DD2Axxxx";
 char cmd_PAPERZERO[]		= "AF171717E6384F21";
 char cmd_PAPERVAL[]			= "3Exx171717E6384F21";
 char cmd_PAPERVAR[]			= "3Axxxx171717E6384F21";
-
 char cmd_PLOTVALVAL[]		= "21xxxx22xxxxCDxxxx";
 char cmd_PLOTVALVAR[]		= "26xx3Axxxx6F22xxxxCDxxxx";
 char cmd_PLOTVALSPRVAR[]	= "26xxDD7Exx6F22xxxxCDxxxx";
@@ -301,7 +300,6 @@ char cmd_PLOTSPRVARZERO[]	= "DD7Exx67AF6F22xxxxCDxxxx";
 char cmd_PLOTSPRVARVAL[]	= "DD7Exx673Exx6F22xxxxCDxxxx";
 char cmd_PLOTSPRVARVAR[]	= "DD7Exx673Axxxx6F22xxxxCDxxxx";
 char cmd_PLOTSPRVARSPRVAR[]	= "DD7Exx67DD7Exx6F22xxxxCDxxxx";
-
 char cmd_PRINTMODEZERO[]	= "AF32xxxx";
 char cmd_PRINTMODEVAL[]		= "3Exx32xxxx";
 char cmd_PRINTMODEVAR[]		= "3Axxxx32xxxx";
@@ -310,6 +308,7 @@ char cmd_PRINTVAL[]			= "3ExxCDxxxx";
 char cmd_PUTBLOCKZERO[]		= "21xxxx22xxxx2Axxxx22xxxxAF";
 char cmd_PUTBLOCKVAL[]		= "21xxxx22xxxx2Axxxx22xxxx3Exx";
 char cmd_PUTBLOCKVAR[]		= "21xxxx22xxxx2Axxxx22xxxx3Axxxx";
+char cmd_PUTBLOCKSPRVAR[]	= "21xxxx22xxxx2Axxxx22xxxxDD7Exx";
 char cmd_PUT[]				= "CDxxxx";
 char cmd_RANDOMIZEVAL[]		= "3Exx32xxxx";
 char cmd_RANDOMIZEVAR[]		= "3Axxxx32xxxx";

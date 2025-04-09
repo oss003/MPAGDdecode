@@ -6790,6 +6790,44 @@ int tst_PUTBLOCKVAR(){
 }
 
 //--------------------------------------------
+// 70. PUTBLOCK SPRVAR
+//--------------------------------------------
+
+int tst_PUTBLOCKSPRVAR(){
+
+// Define variables
+
+	char cPattern[64];
+	int sprVARval;
+	
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02Xxxxx%02Xxxxx%02Xxxxx%02Xxxxx%02X%02Xxx",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 3],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 9],
+		cBuff[event_ptr + 12],
+		cBuff[event_ptr + 13]);
+
+// Read parameters
+
+	sprVARval = ReadParam(14);
+	const char *sprVARname = ReadSprVarName(sprVARval);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_PUTBLOCKSPRVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X PUTBLOCK %s\n", event_ptr + SnapshotOffset, sprVARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 24;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 71. RANDOMIZE VAL
 //--------------------------------------------
 
