@@ -557,6 +557,7 @@ void Init(){
 	sprintf(cmd_INVVAL		 ,"3ExxCD%02X%02X"          ,CallInv  & 0xff, CallInv  >> 8);
 	sprintf(cmd_INVVAR		 ,"3AxxxxCD%02X%02X"        ,CallInv  & 0xff, CallInv  >> 8);
 	sprintf(cmd_INVSPRVAR	 ,"DD7ExxCD%02X%02X"        ,CallInv  & 0xff, CallInv  >> 8);
+	sprintf(cmd_JUMPZERO      ,"AFCD%02X%02X"           ,CallJump  & 0xff, CallJump  >> 8);
 	sprintf(cmd_JUMPVAL      ,"3ExxCD%02X%02X"          ,CallJump  & 0xff, CallJump  >> 8);
 	sprintf(cmd_JUMPVAR      ,"3AxxxxCD%02X%02X"        ,CallJump  & 0xff, CallJump  >> 8);
 	sprintf(cmd_JUMPSPRVAR   ,"DD7ExxCD%02X%02X"        ,CallJump  & 0xff, CallJump  >> 8);

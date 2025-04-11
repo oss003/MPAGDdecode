@@ -237,6 +237,7 @@ char cmd_INVZERO[]			= "AFCDxxxx";
 char cmd_INVVAL[]			= "3ExxCDxxxx";
 char cmd_INVVAR[]			= "3AxxxxCDxxxx";
 char cmd_INVSPRVAR[]		= "DD7ExxCDxxxx";
+char cmd_JUMPZERO[]			= "AFCDxxxx";
 char cmd_JUMPVAL[]			= "3ExxCDxxxx";
 char cmd_JUMPVAR[]			= "3AxxxxCDxxxx";
 char cmd_JUMPSPRVAR[]		= "DD7ExxCDxxxx";
@@ -490,8 +491,8 @@ const char *KeyString[]={
 	"",
 	"LEFT",
 	"RIGHT",
-	"DOWN",
 	"UP",
+	"DOWN",
 	"FIRE",
 	"FIRE2",
 	"FIRE3",

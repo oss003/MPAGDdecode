@@ -1098,7 +1098,7 @@ int tst_ATVARSPRVAR(){
 	if (strcmp(cmd_ATVARSPRVAR, cPattern) == 0){
 		sprintf (Dummy,"%04X AT %s %s\n", event_ptr + SnapshotOffset, VARname, sprVARname2); 
 		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 10;
+		event_ptr = event_ptr + 11;
 		return 1;
 	} else {
 		return 0;
@@ -2492,7 +2492,7 @@ int tst_DIGZERO(){
 // Compare pattern with template
 
 	if (strcmp(cmd_DIGZERO, cPattern) == 0){
-		sprintf (Dummy,"%04X DIG RIGHT\n", event_ptr + SnapshotOffset); 
+		sprintf (Dummy,"%04X DIG %s\n", event_ptr + SnapshotOffset,KeyString[1]); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 4;
 		return 1;
@@ -3418,7 +3418,7 @@ int tst_GETBLKVARVAR(){
 	if (strcmp(cmd_GETBLKVARVAR, cPattern) == 0){
 		sprintf (Dummy,"%04X GETBLOCK %s,%s\n", event_ptr + SnapshotOffset, VARname1, VARname2); 
 		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 14;
+		event_ptr = event_ptr + 17;
 		return 1;
 	} else {
 		return 0;
@@ -4708,6 +4708,36 @@ int tst_JUMPVAL(){
 }
 
 //--------------------------------------------
+// 49. JUMP ZERO
+//--------------------------------------------
+
+int tst_JUMPZERO(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 3]);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_JUMPZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X JUMP 0\n", event_ptr + SnapshotOffset); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 4;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 49. JUMP VAR
 //--------------------------------------------
 
@@ -4967,6 +4997,7 @@ int tst_LETVAREQZERO(){
 		sprintf (Dummy,"%04X LET %s = 0\n", event_ptr + SnapshotOffset, VARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 4;
+		if (VARname == "SCREEN") event_ptr = event_ptr + 3;
 		return 1;
 	} else {
 		return 0;
@@ -5000,6 +5031,7 @@ int tst_LETVAREQVAR(){
 		sprintf (Dummy,"%04X LET %s = %s\n", event_ptr + SnapshotOffset, VARname1, VARname2); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 6;
+		if (VARname1 == "SCREEN") event_ptr = event_ptr + 3;
 		return 1;
 	} else {
 		return 0;
@@ -5026,16 +5058,17 @@ int tst_LETVAREQSPRVAR(){
 
 // Read parameters
 
-	const char *VARval = ReadVarName(4);
+	const char *VARname = ReadVarName(4);
 	sprVARval = ReadParam(2);
 	const char *sprVARname = ReadSprVarName(sprVARval);
 
 // Compare pattern with template
 
 	if (strcmp(cmd_LETVAREQSPRVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X LET %s = %s\n", event_ptr + SnapshotOffset, VARval, sprVARname); 
+		sprintf (Dummy,"%04X LET %s = %s\n", event_ptr + SnapshotOffset, VARname, sprVARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 6;
+		if (VARname == "SCREEN") event_ptr = event_ptr + 3;
 		return 1;
 	} else {
 		return 0;
@@ -5071,6 +5104,7 @@ int tst_LETVAREQVAL(){
 		sprintf (Dummy,"%04X LET %s = %d\n", event_ptr + SnapshotOffset, VARname, DataByte); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 5;
+		if (VARname == "SCREEN") event_ptr = event_ptr + 3;
 		return 1;
 	} else {
 		return 0;
@@ -5977,7 +6011,7 @@ int tst_PLOTVALVAR(){
 // Compare pattern with template
 
 	if (strcmp(cmd_PLOTVALVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X PLOT %d %s\n", event_ptr + SnapshotOffset, DataByte, VARname); 
+		sprintf (Dummy,"%04X PLOT %d,%s\n", event_ptr + SnapshotOffset, DataByte, VARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 12;
 		return 1;
@@ -6056,7 +6090,7 @@ int tst_PLOTVARZERO(){
 // Compare pattern with template
 
 	if (strcmp(cmd_PLOTVARZERO, cPattern) == 0){
-		sprintf (Dummy,"%04X PLOT %s 0\n", event_ptr + SnapshotOffset, VARname); 
+		sprintf (Dummy,"%04X PLOT %s,0\n", event_ptr + SnapshotOffset, VARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 12;
 		return 1;
@@ -6095,7 +6129,7 @@ int tst_PLOTVARVAL(){
 // Compare pattern with template
 
 	if (strcmp(cmd_PLOTVARVAL, cPattern) == 0){
-		sprintf (Dummy,"%04X PLOT %s %d\n", event_ptr + SnapshotOffset, VARname, DataByte); 
+		sprintf (Dummy,"%04X PLOT %s,%d\n", event_ptr + SnapshotOffset, VARname, DataByte); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 13;
 		return 1;
@@ -6134,7 +6168,7 @@ int tst_PLOTVARVAR(){
 // Compare pattern with template
 
 	if (strcmp(cmd_PLOTVARVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X PLOT %s %s\n", event_ptr + SnapshotOffset, VARname, VARname2); 
+		sprintf (Dummy,"%04X PLOT %s,%s\n", event_ptr + SnapshotOffset, VARname, VARname2); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 14;
 		return 1;
@@ -6178,7 +6212,7 @@ int tst_PLOTVARSPRVAR(){
 	if (strcmp(cmd_PLOTVARSPRVAR, cPattern) == 0){
 		sprintf (Dummy,"%04X PLOT %s,%s\n", event_ptr + SnapshotOffset, VARname, sprVARname); 
 		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 12;
+		event_ptr = event_ptr + 14;
 		return 1;
 	} else {
 		return 0;
@@ -7716,7 +7750,7 @@ int tst_SILENCE(){
 }
 
 //--------------------------------------------
-// 88. SOUNDZERO ZERO
+// 88. SOUND ZERO
 //--------------------------------------------
 
 int tst_SOUNDZERO(){
@@ -7730,15 +7764,15 @@ int tst_SOUNDZERO(){
 	sprintf(cPattern, "%02Xxxxx%02X%02X%02X%02X%02Xxxxx",
 		cBuff[event_ptr + 0],
 		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 4],
 		cBuff[event_ptr + 5],
 		cBuff[event_ptr + 6],
 		cBuff[event_ptr + 7]);
 
 // Compare pattern with template
 
-	if (strcmp(cmd_SOUNDVAL, cPattern) == 0){
-		sprintf (Dummy,"%04X SOUND %d\n", event_ptr + SnapshotOffset, DataByte); 
+	if (strcmp(cmd_SOUNDZERO, cPattern) == 0){
+		sprintf (Dummy,"%04X SOUND 0\n", event_ptr + SnapshotOffset); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 10;
 		return 1;
@@ -7759,11 +7793,9 @@ int tst_SOUNDVAL(){
 
 // Read pattern from buffer
 
-	sprintf(cPattern, "%02Xxxxx%02X%02X%02X%02X%02Xxxxx",
+	sprintf(cPattern, "%02Xxxxx%02Xxxxx%02X%02Xxxxx",
 		cBuff[event_ptr + 0],
 		cBuff[event_ptr + 3],
-		cBuff[event_ptr + 5],
-		cBuff[event_ptr + 5],
 		cBuff[event_ptr + 6],
 		cBuff[event_ptr + 7]);
 
@@ -7773,8 +7805,8 @@ int tst_SOUNDVAL(){
 
 // Compare pattern with template
 
-	if (strcmp(cmd_SOUNDZERO, cPattern) == 0){
-		sprintf (Dummy,"%04X SOUND %d\n", event_ptr + SnapshotOffset, DataByte); 
+	if (strcmp(cmd_SOUNDVAL, cPattern) == 0){
+		sprintf (Dummy,"%04X SOUND %d\n", event_ptr + SnapshotOffset, DataByte - 0x50); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 10;
 		return 1;
@@ -8705,7 +8737,7 @@ int tst_TICKERVARVAR(){
 	if (strcmp(cmd_TICKERVARVAR, cPattern) == 0){
 		sprintf (Dummy,"%04X TICKER %s,%s\n", event_ptr + SnapshotOffset, VARname, VARname1); 
 		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 10;
+		event_ptr = event_ptr + 11;
 		return 1;
 	} else {
 		return 0;
