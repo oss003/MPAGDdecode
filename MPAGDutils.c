@@ -146,7 +146,7 @@ const char *ReadVarName(offset){
 		case 34: VARname = "RND"; break;
 		case 35: VARname = "OBJ"; break;
 		case 36: VARname = "OPT"; break;
-//		case 37: VARname = "PRINTMODE";break;
+		case 37: VARname = "BLOCK";break;
 		default: VARname = "???";
 	}
 	return VARname;

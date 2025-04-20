@@ -5500,7 +5500,10 @@ int tst_MULVAR(){
 	char cPattern1[64];
 	char cPattern2[64];
 	char cPattern3[64];
+	char cPattern3a[64];
+	char cPattern3b[64];
 	char cPattern4[64];
+	char cPattern4a[64];
 	char cPattern5[64];
 	char cPattern6[64];
 	char cPattern7[64];
@@ -5518,9 +5521,19 @@ int tst_MULVAR(){
 	sprintf(cPattern3, "%02Xxxxx%02X%02X%02Xxxxx",
 		cBuff[event_ptr + 0],cBuff[event_ptr + 3],cBuff[event_ptr + 4],
 		cBuff[event_ptr + 5])											;	// VAR*4
+	sprintf(cPattern3a, "%02Xxxxx%02X%02X%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],cBuff[event_ptr + 3],cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],cBuff[event_ptr + 6],cBuff[event_ptr + 7])	;	// VAR*5
+	sprintf(cPattern3b, "%02Xxxxx%02X%02X%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],cBuff[event_ptr + 3],cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],cBuff[event_ptr + 6],cBuff[event_ptr + 7])	;	// VAR*6
 	sprintf(cPattern4, "%02Xxxxx%02X%02X%02X%02Xxxxx",
 		cBuff[event_ptr + 0],cBuff[event_ptr + 3],cBuff[event_ptr + 4],
 		cBuff[event_ptr + 5],cBuff[event_ptr + 6])						;	// VAR*8
+	sprintf(cPattern4a, "%02Xxxxx%02X%02X%02X%02X%02X%02Xxxxx",
+		cBuff[event_ptr + 0],cBuff[event_ptr + 3],cBuff[event_ptr + 4],
+		cBuff[event_ptr + 5],cBuff[event_ptr + 6],cBuff[event_ptr + 7],
+		cBuff[event_ptr + 8])											;	// VAR*10
 	sprintf(cPattern5, "%02Xxxxx%02X%02X%02X%02X%02Xxxxx",
 		cBuff[event_ptr + 0],cBuff[event_ptr + 3],cBuff[event_ptr + 4],
 		cBuff[event_ptr + 5],cBuff[event_ptr + 6],cBuff[event_ptr + 7])	;	// VAR*16
@@ -5577,10 +5590,28 @@ int tst_MULVAR(){
 		event_ptr = event_ptr + 8;
 		return 1;
 	}
+	if (strcmp(cmd_MULVAR5, cPattern3a) == 0){
+		sprintf (Dummy,"%04X MULTIPLY %s BY 5\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	}
+	if (strcmp(cmd_MULVAR6, cPattern3b) == 0){
+		sprintf (Dummy,"%04X MULTIPLY %s BY 6\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 10;
+		return 1;
+	}
 	if (strcmp(cmd_MULVAR8, cPattern4) == 0){
 		sprintf (Dummy,"%04X MULTIPLY %s BY 8\n", event_ptr + SnapshotOffset, VARname); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 9;
+		return 1;
+	}
+	if (strcmp(cmd_MULVAR10, cPattern4a) == 0){
+		sprintf (Dummy,"%04X MULTIPLY %s BY 10\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
 		return 1;
 	}
 	if (strcmp(cmd_MULVAR16, cPattern5) == 0){

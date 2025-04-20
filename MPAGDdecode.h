@@ -266,7 +266,10 @@ char cmd_MESSAGEVAR[]		= "3AxxxxCDxxxx";
 char cmd_MULVAR2[]			= "3Axxxx8732xxxx";
 char cmd_MULVAR3[]			= "3Axxxx57878232xxxx";
 char cmd_MULVAR4[]			= "3Axxxx878732xxxx";
+char cmd_MULVAR5[]			= "3Axxxx5787878232xxxx";
+char cmd_MULVAR6[]			= "3Axxxx8757878232xxxx";
 char cmd_MULVAR8[]			= "3Axxxx87878732xxxx";
+char cmd_MULVAR10[]			= "3Axxxx875787878232xxxx";
 char cmd_MULVAR16[]			= "3Axxxx8787878732xxxx";
 char cmd_MULVAR32[]			= "3Axxxx0F0F0FE6E032xxxx";
 char cmd_MULVAR64[]			= "3Axxxx0F0FE6C032xxxx";
@@ -455,6 +458,8 @@ const char *VARstring[]={
 	"OBJ",
 	"OPT",
 	"BLOCK",
+	"x1",
+	"x2",
 	NULL};
 
 const char *SPRVARstring[]={

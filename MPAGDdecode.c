@@ -164,11 +164,13 @@ int main( int argc, const char* argv[] )
 	
 // Open output file
 
-    fpDest = fopen(szDestFilename, "w");
-    if (fpDest == NULL) {
-        perror("Error opening file");
-        return EXIT_FAILURE;
-    }
+	if (debug == 0){
+		fpDest = fopen(szDestFilename, "w");
+		if (fpDest == NULL) {
+			perror("Error opening file");
+			return EXIT_FAILURE;
+		}
+	}
 	sprintf(Dummy,";----------------------------------------------------------------\n");
 	PrtReport(Dummy,0);
 	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.6 KC 2025\n");
@@ -410,6 +412,10 @@ int main( int argc, const char* argv[] )
 					if (tst_PUT())				  break;
 					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr++;
+					break;
+				case 0xc3:
+					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+					event_ptr = event_ptr+3;
 					break;
 				case 0xc9:
 					if (tst_EXIT(Events))         break;
