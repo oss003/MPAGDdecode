@@ -17,6 +17,7 @@ extern int AdvMode;
 // Definitions
  
 
+
 // Prototypes. 
 
 // global variables   
@@ -89,7 +90,7 @@ int main( int argc, const char* argv[] )
 //
 	sprintf (Dummy,"==============================================================\n");
 	PrtReport(Dummy,2);
-	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.6 KC 2025\n");
+	sprintf (Dummy,"MPAGD v0.7.10 decoder v1.7 KC 2025\n");
 	PrtReport(Dummy,2);
 	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,2);
@@ -173,7 +174,7 @@ int main( int argc, const char* argv[] )
 	}
 	sprintf(Dummy,";----------------------------------------------------------------\n");
 	PrtReport(Dummy,0);
-	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.6 KC 2025\n");
+	sprintf (Dummy,"; MPAGD v0.7.10 decoder v1.7 KC 2025\n");
 	PrtReport(Dummy,0);
 	sprintf (Dummy,"; Sourcefile: %s.sna\n",argv[1]);
 	PrtReport(Dummy,0);
@@ -285,6 +286,7 @@ int main( int argc, const char* argv[] )
 					if (tst_RANDOMIZEVAR())		  break;
 					if (tst_SOUNDVAR())			  break;
 					if (tst_PLOTVARZERO())		  break;
+					if (tst_USERVAR())			  break;
 					if (tst_PLOTVARVAL())		  break;
 					if (tst_PLOTVARVAR())		  break;
 					if (tst_PLOTVARSPRVAR())	  break;
@@ -350,6 +352,7 @@ int main( int argc, const char* argv[] )
 				case 0x3e:
 					if (tst_RANDOMIZEVAL())		  break;
 					if (tst_IFWHILE(2))           break;
+					if (tst_USERVAL())			  break;
 					if (tst_CLUTVAL())			  break;
 					if (tst_TICKERVALVAR())		  break;
 					if (tst_DIGVAL())			  break;
@@ -390,6 +393,7 @@ int main( int argc, const char* argv[] )
 				case 0xaf:
 					if (tst_IFWHILE(3))           break;
 					if (tst_STARZERO())			  break;
+					if (tst_USERZERO())			  break;
 					if (tst_CLUTZERO())			  break;
 					if (tst_JUMPZERO())		      break;
 					if (tst_MENUZERO())			  break;
@@ -397,6 +401,7 @@ int main( int argc, const char* argv[] )
 					if (tst_DIGZERO())			  break;
 					if (tst_COLOURZERO())         break;
 					if (tst_REPEATZERO())         break;
+					if (tst_SPRITEINKZERO())	  break;
 					if (tst_PAPERZERO())          break;
 					if (tst_PRINTMODEZERO())      break;
 					if (tst_LETVAREQZERO())       break;
@@ -414,7 +419,7 @@ int main( int argc, const char* argv[] )
 					event_ptr++;
 					break;
 				case 0xc3:
-					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
+//					if (debug == 1) printf("    %02X-%04X\n", cBuff[event_ptr],event_ptr + SnapshotOffset);
 					event_ptr = event_ptr+3;
 					break;
 				case 0xc9:
@@ -424,6 +429,7 @@ int main( int argc, const char* argv[] )
 					break;
 				case 0xcd:
 					if (tst_WAITKEY())            break;
+					if (tst_USER())				  break;
 					if (tst_SILENCE())			  break;
 					if (tst_TRAIL())			  break;
 					if (tst_DEFINEKEY())          break;
@@ -463,6 +469,8 @@ int main( int argc, const char* argv[] )
 					if (tst_PLOTSPRVARVAL())	  break;
 					if (tst_PLOTSPRVARVAR())	  break;
 					if (tst_PLOTSPRVARSPRVAR())	  break;
+					if (tst_USERSPRVAR())		  break;
+					if (tst_SPRITEINKSPRVAR())	  break;
 					if (tst_BEEPSPRVAR())		  break;
 					if (tst_ATSPRVARZERO())		  break;
 					if (tst_ATSPRVARVAL())		  break;

@@ -437,6 +437,7 @@ void Init(){
 
 	PrtReport("\nChecking reference patterns:\n",2);
 	EngineStart = FindAddress("22365C") - 3;
+	
 	CallSpawn   = FindAddress("C92B2BC9") + 4;
 	CallCangoL  = FindAddress("C9DD6E08DD7E09D602")+1;
 	CallCangoR  = FindAddress("6E08DD7E09C6106722")-1;
@@ -484,12 +485,16 @@ void Init(){
 	CallInv		= CallMenu - 17;
 	CallPlot	= FindAddress("7CE60716005F21");
 	CallSilence = FindAddress("0B78B120") + 6;
+	CallBonus	= FindAddress("A70130061A8E") - 6;
 	
 	sndtype		= FindAddress("78E67F3C3D20") + 12;
 	prtmod		= FindAddress("7EE5E67FFE0D") - 1;
 	evntloc		= FindAddress("5E2356EBE9") - SnapshotOffset + 7;
 	msgdata		= FindAddress("E51601AF32") - SnapshotOffset - 5;
-
+	NUMSPR		= cBuff[CallRedraw - SnapshotOffset + 9];
+	TABSIZ		= cBuff[CallRedraw - SnapshotOffset + 32];
+	EngineEnd	= FindAddress("6826002B1922") + 19 + (NUMSPR + 1) * TABSIZ + 1 + 3 * 41 +1;
+	
 // Calculate locations in engine
 
 	VarAddress  = EngineStart;
@@ -510,6 +515,7 @@ void Init(){
 	
 // Update templates with right engine routine addresses
 
+	sprintf(cmd_ADDBONUS	 ,"CD%02X%02X"              ,CallBonus  & 0xff, CallBonus  >> 8);
 	sprintf(cmd_ANIMATE      ,"AFCD%02X%02X"            ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
 	sprintf(cmd_ANIMMED      ,"3E01CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
 	sprintf(cmd_ANIMSLOW	 ,"3E03CD%02X%02X"          ,CallAnimesp  & 0xff, CallAnimesp  >> 8);
@@ -615,6 +621,11 @@ void Init(){
 	sprintf(cmd_TABLEFALL    ,"CD%02X%02X"  	        ,CallTfall  & 0xff, CallTfall  >> 8);
 	sprintf(cmd_TABLEJUMP    ,"CD%02X%02X"  	        ,CallTjump  & 0xff, CallTjump  >> 8);
 	sprintf(cmd_TRAIL	     ,"CD%02X%02X"  	        ,CallVapour  & 0xff, CallVapour  >> 8);
+	sprintf(cmd_USER		 ,"CD%02X%02X"  	        ,EngineEnd  & 0xff, EngineEnd  >> 8);
+	sprintf(cmd_USERZERO	 ,"AFCD%02X%02X"  	        ,EngineEnd  & 0xff, EngineEnd  >> 8);
+	sprintf(cmd_USERVAL	 	 ,"3ExxCD%02X%02X"        	,EngineEnd  & 0xff, EngineEnd  >> 8);
+	sprintf(cmd_USERVAR	 	 ,"3AxxxxCD%02X%02X"        ,EngineEnd  & 0xff, EngineEnd  >> 8);
+	sprintf(cmd_USERSPRVAR	 ,"DD7ExxCD%02X%02X"        ,EngineEnd  & 0xff, EngineEnd  >> 8);
 	sprintf(cmd_WAITKEY		 ,"CD%02X%02X"			    ,CallWaitkey  & 0xff, CallWaitkey  >> 8);
 	sprintf(cmd_ZEROBONUS    ,"21%02X%02X010500363011"  ,bonus  & 0xff, bonus  >> 8);
 
@@ -755,6 +766,8 @@ void Info(){
 // Print table addresses
 
 	sprintf (Dummy,"\nEngineAddress: %04X\n",EngineStart);
+	PrtReport(Dummy,2);
+	sprintf (Dummy,"EngineEnd    : %04X\n",EngineEnd);
 	PrtReport(Dummy,2);
 	sprintf (Dummy,"VarAddress   : %04X\n",VarAddress);
 	PrtReport(Dummy,2);

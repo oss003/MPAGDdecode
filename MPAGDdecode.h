@@ -2,8 +2,10 @@
 
 int CodeStart;
 int EngineStart;
+int EngineEnd;
 int VarAddress;
 int ScrFormat;
+
 int CallSpawn;
 int CallCangoL;
 int CallCangoR;
@@ -51,6 +53,8 @@ int CallMenu;
 int CallInv;
 int CallPlot;
 int CallSilence;
+int CallBonus;
+int CallUser;
 
 int ptr_offset;
 int sndtype;
@@ -90,8 +94,10 @@ int numsc;
 int nmedat;
 
 int nummsg;
+int NUMSPR;
+int TABSIZ;
 
-char cmd_ADDBONUS[]			= "CD4D71";
+char cmd_ADDBONUS[]			= "CDxxxx";
 char cmd_ADD1TOVAR[]		= "3Axxxx3C32xxxx";
 char cmd_ADD1TOSPRVAR[]		= "DD7Exx3C";
 char cmd_ADDVARTOVAR[]		= "3Axxxx4F3Axxxx8132xxxx";
@@ -280,7 +286,10 @@ char cmd_MULVARSPRVAR[]		= "3Axxxx57DD7Exx67CDxxxx7D32xxxx";
 char cmd_MULSPRVAR2[]		= "DD7Exx87DD77xx";
 char cmd_MULSPRVAR3[]		= "DD7Exx578782DD77xx";
 char cmd_MULSPRVAR4[]		= "DD7Exx8787DD77xx";
+char cmd_MULSPRVAR5[]		= "DD7Exx57878782DD77xx";
+char cmd_MULSPRVAR6[]		= "DD7Exx87578782DD77xx";
 char cmd_MULSPRVAR8[]		= "DD7Exx878787DD77xx";
+char cmd_MULSPRVAR10[]		= "DD7Exx8757878782DD77xx";
 char cmd_MULSPRVAR16[]		= "DD7Exx87878787DD77xx";
 char cmd_MULSPRVAR32[]		= "DD7Exx0F0F0FE6E0DD77xx";
 char cmd_MULSPRVAR64[]		= "DD7Exx0F0FE6C0DD77xx";
@@ -352,7 +361,9 @@ char cmd_SPAWNVARZERO[]		= "3Axxxx4FAF47CDxxxx";
 char cmd_SPAWNVALVAL[]		= "01xxxxCDxxxx";
 char cmd_SPAWNED[]			= "DD2Axxxx";
 char cmd_SPRITEDOWN[]		= "DD3408DD3408";
+char cmd_SPRITEINKZERO[]	= "AFE6074FCDxxxx";
 char cmd_SPRITEINKVAR[]		= "3AxxxxE6074FCDxxxx";
+char cmd_SPRITEINKSPRVAR[]	= "DD7ExxE6074FCDxxxx";
 char cmd_SPRITEINKVAL[]		= "3ExxE6074FCDxxxx";
 char cmd_SPRITELEFT[]		= "DD3509DD3509";
 char cmd_SPRITERIGHT[]		= "DD3409DD3409";
@@ -372,6 +383,11 @@ char cmd_TICKERVARVAL[]		= "3Axxxx473Exx4FCD";
 char cmd_TICKERVARVAR[]		= "3Axxxx473Axxxx4FCD";
 char cmd_TRAIL[]			= "CDxxxx";
 char cmd_UNDOSPRITEMOVE[]	= "DD7E03DD7708DD7E04DD7709";
+char cmd_USER[]				= "CDxxxx";
+char cmd_USERZERO[]			= "AFCDxxxx";
+char cmd_USERVAL[]			= "3ExxCDxxxx";
+char cmd_USERVAR[]			= "3AxxxxCDxxxx";
+char cmd_USERSPRVAR[]		= "DD7ExxCDxxxx";
 char cmd_WAITKEY[]			= "CDxxxx";						// Test before READVAR and READSPRVAR!!
 char cmd_ZEROBONUS[]		= "21xxxx010500363011";
 
