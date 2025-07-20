@@ -510,10 +510,10 @@ const char *OPstring[]={
 
 const char *KeyString[]={
 	"",
-	"LEFT",
 	"RIGHT",
-	"UP",
+	"LEFT",
 	"DOWN",
+	"UP",
 	"FIRE",
 	"FIRE2",
 	"FIRE3",

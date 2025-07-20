@@ -2366,6 +2366,43 @@ int tst_DELAYVAL(){
 }
 
 //--------------------------------------------
+// 23. DELAY VAR
+//--------------------------------------------
+
+int tst_DELAYVAR(){
+
+// Define variables
+
+	char cPattern[64];
+
+// Read pattern from buffer
+
+	sprintf(cPattern, "%02X%02X%02Xxxxx%02X%02Xxxxx%02X%02X",
+		cBuff[event_ptr + 0],
+		cBuff[event_ptr + 1],
+		cBuff[event_ptr + 2],
+		cBuff[event_ptr + 5],
+		cBuff[event_ptr + 6],
+		cBuff[event_ptr + 9],
+		cBuff[event_ptr + 10]);
+
+// Read parameters
+
+	const char *VARname = ReadVarName(3);
+
+// Compare pattern with template
+
+	if (strcmp(cmd_DELAYVAR, cPattern) == 0){
+		sprintf (Dummy,"%04X DELAY %s\n", event_ptr + SnapshotOffset, VARname); 
+		PrtReport(Dummy,1);
+		event_ptr = event_ptr + 11;
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+//--------------------------------------------
 // 23a. DEFINEKEY LEFT/RIGHT/UP/DOWN
 //--------------------------------------------
 
@@ -2399,43 +2436,6 @@ int tst_DEFINEKEY(){
 		sprintf (Dummy,"%04X DEFINEKEY %s\n", event_ptr + SnapshotOffset, KeyString[Address]); 
 		PrtReport(Dummy,1);
 		event_ptr = event_ptr + 14;
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-//--------------------------------------------
-// 23. DELAY VAR
-//--------------------------------------------
-
-int tst_DELAYVAR(){
-
-// Define variables
-
-	char cPattern[64];
-
-// Read pattern from buffer
-
-	sprintf(cPattern, "%02X%02X%02Xxxxx%02X%02Xxxxx%02X%02X",
-		cBuff[event_ptr + 0],
-		cBuff[event_ptr + 1],
-		cBuff[event_ptr + 2],
-		cBuff[event_ptr + 5],
-		cBuff[event_ptr + 6],
-		cBuff[event_ptr + 9],
-		cBuff[event_ptr + 10]);
-
-// Read parameters
-
-	const char *VARname = ReadVarName(3);
-
-// Compare pattern with template
-
-	if (strcmp(cmd_DELAYVAR, cPattern) == 0){
-		sprintf (Dummy,"%04X DELAY %s\n", event_ptr + SnapshotOffset, VARname); 
-		PrtReport(Dummy,1);
-		event_ptr = event_ptr + 11;
 		return 1;
 	} else {
 		return 0;
